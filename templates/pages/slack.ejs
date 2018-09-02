@@ -1,0 +1,357 @@
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Slack Invite | SLUH Hack Club</title>
+    <% include ../partials/favicon.ejs %>
+    <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- Bulma Version 0.7.1-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style media="screen">
+
+/* hero.css */
+
+html,body {
+  background: #EFF3F4;
+  font-family: 'Open Sans', serif;
+}
+.hero-body .container {
+  max-width: 700px;
+}
+.hero-body .title {
+  color: hsl(192,17%,99%) !important;
+}
+.hero-body .subtitle {
+  color: hsl(192,17%,99%) !important;
+  padding-top: 2rem;
+  line-height: 1.5;
+}
+.features {
+  padding: 5rem 0;
+}
+.box.cta {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+.card-image > .fas, .card-image > .fab {
+  font-size: 8rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  color: #209cee;
+}
+.card-content .content {
+  font-size: 14px;
+  margin: 1rem 1rem;
+}
+.card-content .content h4 {
+  font-size: 16px;
+  font-weight: 700;
+}
+.card {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+  margin-bottom: 2rem;
+}
+.intro {
+  padding: 5rem 0;
+  text-align: center;
+}
+.sandbox {
+  padding: 5rem 0;
+}
+.tile.notification {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.is-shady {
+animation: flyintoright .4s backwards;
+background: #fff;
+box-shadow: rgba(0, 0, 0, .1) 0 1px 0;
+border-radius: 4px;
+display: inline-block;
+margin: 10px;
+position: relative;
+transition: all .2s ease-in-out;
+}
+.is-shady:hover {
+box-shadow: 0 10px 16px rgba(0, 0, 0, .13), 0 6px 6px rgba(0, 0, 0, .19);
+}
+/*adds font awesome stars*/
+footer li:before {
+  content: '\f1b2';
+  font-family: 'FontAwesome';
+  float: left;
+  margin-left: -1.5em;
+  color: #147efb;
+}
+
+/* /hero.css */
+
+/* Mobile is assumed (Portait) */
+#main-image-div {
+  margin-top: -20px;
+  /* margin-bottom: 20px; */
+}
+
+#main-image {
+  width: 400px;
+}
+
+/* Large Tablets */
+@media only screen and (min-width: 770px) {
+
+#main-image-div {
+  margin-top: -120px;
+}
+
+}
+    </style>
+  </head>
+  <body>
+    <section class="hero is-info is-medium is-bold">
+      <div class="hero-head">
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="../">
+                <img src="/short.png" alt="Logo">
+              </a>
+              <span class="navbar-burger burger" data-target="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+
+            <div id="navbarMenu" class="navbar-menu">
+              <div class="navbar-end">
+                <div class="tabs is-right">
+                  <ul>
+                    <li class="is-active"><a>Home</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                    <li><a href="/team">Team</a></li>
+                  </ul>
+                  <!-- <div class="navbar-item">
+                    <div class="navbar-dropdown">
+                      <a class="navbar-item">
+                        <div>
+                          <span class="icon is-small">
+                            <i class="fas fa-user-circle-o"></i>
+                          </span>
+                          Profile
+                        </div>
+                      </a>
+                      <a class="navbar-item">
+                        <div>
+                          <span class="icon is-small">
+                            <i class="fas fa-bug"></i>
+                            Creating the navigation bar
+                            39
+                          </span>
+                          Report bug
+                        </div>
+                      </a>
+                      <a class="navbar-item">
+                        <div>
+                          <span class="icon is-small">
+                            <i class="fas fa-sign-out"></i>
+                          </span>
+                          Sign Out
+                        </div>
+                      </a>
+                    </div>
+                  </div> -->
+                  <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
+                    <% if (typeof userType !== 'undefined' && userType === 'student') { %>
+                      <span class="navbar-item">
+                        <a class="button is-white is-outlined" href="/dashboard">
+                          <span class="icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                          </span>
+                          <span title="Dashboard">Dashboard</span>
+                        </a>
+                      </span>
+                    <% } else if (typeof userType !== 'undefined' && userType === 'admin') { %>
+                      <span class="navbar-item">
+                        <a class="button is-white is-outlined" href="/admin">
+                          <span class="icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                          </span>
+                          <span title="Admin">Admin</span>
+                        </a>
+                      </span>
+                    <% } %>
+                  <% } else { %>
+                    <span class="navbar-item">
+                      <a class="button is-white is-outlined" href="/login">
+                        <span class="icon">
+                          <i class="fas fa-lock"></i>
+                        </span>
+                        <span title="Login">Login</span>
+                      </a>
+                    </span>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div id="main-image-div">
+            <img src="/icon.png" alt="SLUH Hack Club" id="main-image">
+          </div>
+          <h2 id="above-text" class="subtitle" style="
+    font-size: 2.5rem;
+">
+    <b>Slack Invite</b>
+          </h2>
+        </div>
+      <div id="invite-box">
+          <div class="container has-text-centered" style="
+    max-width: 400px;
+    padding-top: 20px;
+    /* margin-bottom: 40px; */
+">
+
+    <div class="box"><div class="field" style="
+    /* width: 300px; */
+">
+                                <div class="control has-icons-left">
+                                    <input id="email-input" class="input is-large" type="email" placeholder="Email" autofocus="" style="
+    /* width: 300px; */
+">
+                                    <span class="icon is-small is-left"><i class="fa fa-envelope"></i></span>
+                                </div>
+        </div><button id="submit-button" class="button is-block is-info is-large is-fullwidth">Submit</button></div>
+    </div></div></div>
+    </section>
+
+
+    <footer class="footer" style="padding:1.5rem;">
+      <div class="container">
+        <!-- <div class="columns">
+          <div class="column is-3 is-offset-2">
+            <h2><strong>Category</strong></h2>
+            <ul>
+              <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+              <li><a href="#">Vestibulum errato isse</a></li>
+              <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+              <li><a href="#">Aisia caisia</a></li>
+              <li><a href="#">Murphy's law</a></li>
+              <li><a href="#">Flimsy Lavenrock</a></li>
+              <li><a href="#">Maven Mousie Lavender</a></li>
+            </ul>
+          </div>
+          <div class="column is-3">
+            <h2><strong>Category</strong></h2>
+            <ul>
+              <li><a href="#">Labore et dolore magna aliqua</a></li>
+              <li><a href="#">Kanban airis sum eschelor</a></li>
+              <li><a href="#">Modular modern free</a></li>
+              <li><a href="#">The king of clubs</a></li>
+              <li><a href="#">The Discovery Dissipation</a></li>
+              <li><a href="#">Course Correction</a></li>
+              <li><a href="#">Better Angels</a></li>
+            </ul>
+          </div>
+          <div class="column is-4">
+            <h2><strong>Category</strong></h2>
+            <ul>
+              <li><a href="#">Objects in space</a></li>
+              <li><a href="#">Playing cards with coyote</a></li>
+              <li><a href="#">Goodbye Yellow Brick Road</a></li>
+              <li><a href="#">The Garden of Forking Paths</a></li>
+              <li><a href="#">Future Shock</a></li>
+            </ul>
+          </div>
+        </div> -->
+        <div class="content has-text-centered">
+          <!-- <p>
+            <a class="icon" href="https://github.com/dansup/bulma-templates">
+              <i class="fab fa-github"></i>
+            </a>
+          </p> -->
+          <div class="control level-item">
+            <a href="https://dblitt.com">
+              <div class="tags has-addons">
+                <span class="tag is-dark">website created by</span>
+                <span class="tag is-info" style="background-color: #EE7600;">Daniel Blittschau</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+// make the burger work
+(function() {
+  var burger = document.querySelector('.burger');
+  var menu = document.querySelector('#'+burger.dataset.target);
+  burger.addEventListener('click', function() {
+    burger.classList.toggle('is-active');
+    menu.classList.toggle('is-active');
+  });
+})();
+
+function validateEmail(email) {
+  let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+function goToSlack(time) {
+  // document.getElementById('submit-button').onclick = null;
+  window.setTimeout(function(){
+
+// Move to a new location or you can do something else
+window.location.href = "https://sluhhackclub.slack.com";
+
+}, time);
+}
+
+function loginAction() {
+  // First check for all fields filled in
+  if (document.getElementById('email-input').value.length > 0) {
+    if (validateEmail(document.getElementById('email-input').value)) {
+        // Fields are good
+        axios.post('/api/v1/slack_invite', {
+          email: document.getElementById('email-input').value
+        }).then(response => {
+          if (response.data.success && response.data.invited) {
+            document.getElementById('above-text').innerHTML = '<b>Invite Sent!<br>Check your email.</b>';
+            document.getElementById('invite-box').innerHTML = '';
+            // disableButton();
+          } else if (response.data.success && !response.data.invited) {
+            document.getElementById('above-text').innerHTML = '<b>Redirecting to Slack...</b>';
+            document.getElementById('invite-box').innerHTML = '';
+            goToSlack(0);
+          }
+        }).catch(err => {
+          console.error(err);
+        });
+
+    } else {
+      // Bad email input
+      document.getElementById('above-text').innerHTML = '<span style="color: red;"><b>Invalid Email</b></span>';
+    }
+  } else {
+    // If there isn't any input, dont give any errors
+    document.getElementById('above-text').innerHTML = '<b>Slack Invite</b>';
+  }
+};
+
+document.getElementById('submit-button').onclick = loginAction;
+document.body.addEventListener('keydown', event => {
+  if (event.keyCode === 13 && event.repeat === false) {
+    loginAction();
+  }
+});
+      </script>
+    </footer>
+
+
+</body></html>
