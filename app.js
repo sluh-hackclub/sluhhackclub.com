@@ -115,6 +115,40 @@ app.get('/login', (req, res, next) => {
   }
 });
 
+app.get('/leaderboard', (req, res, next) => {
+  let resOptions = {};
+  if (req.session.loggedIn) {
+    if (req.session.userType === 'student') {
+      resOptions.loggedIn = true;
+      resOptions.userType = 'student';
+    } else if (req.session.userType === 'admin') {
+      resOptions.loggedIn = true;
+      resOptions.userType = 'admin';
+    } else {
+      resOptions.loggedIn = false;
+    }
+  } else {
+    resOptions.loggedIn = false;
+  }
+  // BEGIN TEMPORARY DATA
+  resOptions.leaderboardRankings = [
+    {name: 'Micah', currentProjectScore: '100', totalScore: '200'},
+    {name: 'Daniel', currentProjectScore: '0', totalScore: '500'},
+    {name: 'Sean', currentProjectScore: '0', totalScore: '100'}
+  ];
+  resOptions.currentProject = 'Personal Dashboard';
+  resOptions.submissionCount = '60';
+  resOptions.rankedMemberCount = '72';
+  // END TEMPORARY DATA
+  // sort array of rankings
+  resOptions.leaderboardRankings.sort((a, b) => {
+    return Number(b.totalScore) - Number(a.totalScore);
+  });
+  // limit array to 10 entries
+  resOptions.leaderboardRankings.splice(10);
+  res.render('pages/leaderboard.ejs', resOptions);
+});
+
 app.get('/admin', (req, res, next) => {
   if (req.session.loggedIn && req.session.userType === 'admin') {
     let resOptions = {};
@@ -167,6 +201,9 @@ app.get('/admin/submissions/:submissionId', (req, res, next) => {
         } else {
           if (data === null) {
             // if there is nothing found for that object id
+            const error = new Error('Not found');
+            error.status = 404;
+            next(error);
           } else {
             resOptions.submissionTitle = data.title;
             resOptions.submissionURL = data.url;

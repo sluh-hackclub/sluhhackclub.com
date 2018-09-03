@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+  <style>
+    body {
+      position: relative;
+    }
+
+    #leaderboard {
+      width: 70%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+    }
+
+    .triangle-background {
+      position: relative;
+      border-bottom: 100vh solid #00ADEF;
+      border-left: 15vw solid transparent;
+      width: 85%;
+      box-sizing: border-box;
+      float: right;
+    }
+    .logo-container {
+      position: absolute;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 25%;
+    }
+
+    /* .text-container {
+      width: 40%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } */
+
+    /* rem relative to root font size: can easily scale project
+    by just changing font size - from the most top level root - html then body
+    em relative to the element it is styling's font size
+    html elements auto inherit parent's font size */
+    /* vmin - relative to smaller dimension
+    vmax - relative to larger dimension - same format as vw and vh*/
+
+    /* inline-block is an inline element with height and width properties
+    inline - is inline with text like span and has no height and width properties
+    block - has height and width and takes up the full width */
+
+    /* borders meet at an angle and we are just zooming in on them */
+
+  </style>
+
+</head>
+<body ng-app="leaderboardApp">
+  <div class="logo-container">
+    <div class="section">
+      <img src="/hclogo.png" />
+    </div>
+  </div>
+  <div style="position: relative" class="triangle-background">
+  </div>
+    <div id="leaderboard" ng-controller="leaderboardController">
+      <section class="section">
+        <div class="box">
+        <nav class="level">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">
+                Current Project
+              </p>
+              <p class="title"><%= currentProject %></p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">
+                Submissions
+              </p>
+              <p class="title"><%= submissionCount %></p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">
+                Ranked Members
+              </p>
+              <p class="title"><%= rankedMemberCount %></p>
+            </div>
+          </div>
+        </nav>
+        </div>
+        <div class="box">
+          <table class="table is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>
+                  Rank
+                </th>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Current Project Score
+                </th>
+                <th>
+                  Total Score
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr ng-repeat="ranking in leaderboardRankings">
+                <td>
+                  {{$index + 1}}
+                </td>
+                <td>
+                  {{ranking.name}}
+                </td>
+                <td>
+                  {{ranking.currentProjectScore}}
+                </td>
+                <td>
+                  {{ranking.totalScore}}
+                </td>
+              </tr> -->
+              <% leaderboardRankings.forEach((ranking, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= ranking.name %></td>
+                  <td><%= ranking.currentProjectScore %></td>
+                  <td><%= ranking.totalScore %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script> -->
+    <!-- <script src="../../leaderboard.js"></script> -->
+</body>
+</html>

@@ -6,3 +6,8 @@
   - [ ] /admin/projects
 - [ ] User creation
 - [ ] Stateless sessions
+- [ ] Leaderboard
+  - [x] Initial leaderboard template
+    - [ ] Navbar on leaderboard?
+  - [ ] Dynamic data generation
+  - [ ] Responsive and mobile design
