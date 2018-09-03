@@ -1,0 +1,8 @@
+- [ ] Create /admin/submissions
+- [ ] Create /dashboard
+  - [ ] Create submission system
+- [ ] Create project system
+  - [ ] project schema
+  - [ ] /admin/projects
+- [ ] User creation
+- [ ] Stateless sessions
