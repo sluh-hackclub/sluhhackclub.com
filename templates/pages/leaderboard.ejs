@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
   <style>
@@ -59,7 +61,7 @@
 <body ng-app="leaderboardApp">
   <div class="logo-container">
     <div class="section">
-      <img src="../../static/hclogo.png" />
+      <img src="/hclogo.png" />
     </div>
   </div>
   <div style="position: relative" class="triangle-background">
@@ -73,8 +75,7 @@
               <p class="heading">
                 Current Project
               </p>
-              <p class="title" ng-bind="headerData.currentProject">
-              </p>
+              <p class="title"><%= currentProject %></p>
             </div>
           </div>
           <div class="level-item has-text-centered">
@@ -82,8 +83,7 @@
               <p class="heading">
                 Submissions
               </p>
-              <p class="title" ng-bind="headerData.submissionCount">
-              </p>
+              <p class="title"><%= submissionCount %></p>
             </div>
           </div>
           <div class="level-item has-text-centered">
@@ -91,8 +91,7 @@
               <p class="heading">
                 Ranked Members
               </p>
-              <p class="title" ng-bind="headerData.rankedMemberCount">
-              </p>
+              <p class="title"><%= rankedMemberCount %></p>
             </div>
           </div>
         </nav>
@@ -116,7 +115,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="ranking in leaderboardRankings">
+              <!-- <tr ng-repeat="ranking in leaderboardRankings">
                 <td>
                   {{$index + 1}}
                 </td>
@@ -129,12 +128,21 @@
                 <td>
                   {{ranking.totalScore}}
                 </td>
-              </tr>
+              </tr> -->
+              <% leaderboardRankings.forEach((ranking, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= ranking.name %></td>
+                  <td><%= ranking.currentProjectScore %></td>
+                  <td><%= ranking.totalScore %></td>
+                </tr>
+              <% }); %>
             </tbody>
           </table>
         </div>
       </section>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
-    <script src="../../leaderboard.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script> -->
+    <!-- <script src="../../leaderboard.js"></script> -->
 </body>
+</html>
