@@ -241,17 +241,19 @@ footer li:before {
 
 
 <script type="text/javascript">
-  document.getElementById('bottom-button-span').onclick = () => { document.getElementById('bottom-button-span').classList.toggle('is-success'); document.getElementById('bottom-button-span').classList.toggle('is-danger'); if (document.getElementById('bottom-button-span').innerHTML === '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed') { /* was green, now red */ document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-times"></i>&nbsp;&nbsp;Submission Not Reviewed'} else { /* was red, now green */ document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed'} };
+document.getElementById('bottom-button-span').onclick = function () {
+  document.getElementById('bottom-button-span').classList.toggle('is-success');
+  document.getElementById('bottom-button-span').classList.toggle('is-danger');
+  if (document.getElementById('bottom-button-span').innerHTML === '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed') {
+    // was green, now red
+    document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-times"></i>&nbsp;&nbsp;Submission Not Reviewed';
+  } else {
+    // was red, now green
+    document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed';
+  }
+};
 
-  // make the burger work
-  (function() {
-    var burger = document.querySelector('.burger');
-    var menu = document.querySelector('#'+burger.dataset.target);
-    burger.addEventListener('click', function() {
-      burger.classList.toggle('is-active');
-      menu.classList.toggle('is-active');
-    });
-  })();
+<% include ../scripts/burger.ejs %>
 </script>
 
 

@@ -289,51 +289,41 @@ footer li:before {
         </div>
       </div>
       <script type="text/javascript">
-// make the burger work
-(function() {
-  var burger = document.querySelector('.burger');
-  var menu = document.querySelector('#'+burger.dataset.target);
-  burger.addEventListener('click', function() {
-    burger.classList.toggle('is-active');
-    menu.classList.toggle('is-active');
-  });
-})();
+<% include ../scripts/burger.ejs %>
 
 function validateEmail(email) {
-  let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 }
 function goToSlack(time) {
   // document.getElementById('submit-button').onclick = null;
-  window.setTimeout(function(){
+  window.setTimeout(function () {
 
-// Move to a new location or you can do something else
-window.location.href = "https://sluhhackclub.slack.com";
-
-}, time);
+    // Move to a new location or you can do something else
+    window.location.href = "https://sluhhackclub.slack.com";
+  }, time);
 }
 
 function loginAction() {
   // First check for all fields filled in
   if (document.getElementById('email-input').value.length > 0) {
     if (validateEmail(document.getElementById('email-input').value)) {
-        // Fields are good
-        axios.post('/api/v1/slack_invite', {
-          email: document.getElementById('email-input').value
-        }).then(response => {
-          if (response.data.success && response.data.invited) {
-            document.getElementById('above-text').innerHTML = '<b>Invite Sent!<br>Check your email.</b>';
-            document.getElementById('invite-box').innerHTML = '';
-            // disableButton();
-          } else if (response.data.success && !response.data.invited) {
-            document.getElementById('above-text').innerHTML = '<b>Redirecting to Slack...</b>';
-            document.getElementById('invite-box').innerHTML = '';
-            goToSlack(0);
-          }
-        }).catch(err => {
-          console.error(err);
-        });
-
+      // Fields are good
+      axios.post('/api/v1/slack_invite', {
+        email: document.getElementById('email-input').value
+      }).then(function (response) {
+        if (response.data.success && response.data.invited) {
+          document.getElementById('above-text').innerHTML = '<b>Invite Sent!<br>Check your email.</b>';
+          document.getElementById('invite-box').innerHTML = '';
+          // disableButton();
+        } else if (response.data.success && !response.data.invited) {
+          document.getElementById('above-text').innerHTML = '<b>Redirecting to Slack...</b>';
+          document.getElementById('invite-box').innerHTML = '';
+          goToSlack(0);
+        }
+      }).catch(function (err) {
+        console.error(err);
+      });
     } else {
       // Bad email input
       document.getElementById('above-text').innerHTML = '<span style="color: red;"><b>Invalid Email</b></span>';
@@ -345,7 +335,7 @@ function loginAction() {
 };
 
 document.getElementById('submit-button').onclick = loginAction;
-document.body.addEventListener('keydown', event => {
+document.body.addEventListener('keydown', function (event) {
   if (event.keyCode === 13 && event.repeat === false) {
     loginAction();
   }
