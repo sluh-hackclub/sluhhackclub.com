@@ -132,8 +132,8 @@ overflow-y: scroll;
     </nav>
     <!-- END NAV -->
     <div class="container">
-        <div class="columns">
-            <div class="column is-3">
+        <!-- <div class="columns"> -->
+            <!-- <div class="column is-3">
                 <aside class="menu">
                     <p class="menu-label">
                         General
@@ -168,8 +168,9 @@ overflow-y: scroll;
                         <li><a>Balance</a></li>
                     </ul>
                 </aside>
-            </div>
-            <div class="column is-9">
+            </div> -->
+            <!-- <div class="column is-9"> -->
+              <div style="margin-left:10px;margin-right:10px;">
                 <section class="hero is-info welcome is-small">
                     <div class="hero-body">
                         <div class="container">
@@ -204,12 +205,13 @@ overflow-y: scroll;
                         </div>
                     </div>
                 </section>
-                <div class="columns">
+              </div>
+                <div class="columns" style="margin-left:0px;">
                     <div class="column is-6">
                         <div class="card events-card">
                             <header class="card-header">
                                 <p class="card-header-title">
-                                    Submissions
+                                    Unreviewed Submissions
                                 </p>
                                 <a href="#" class="card-header-icon" aria-label="more options">
                   <span class="icon">
@@ -233,7 +235,7 @@ overflow-y: scroll;
                                 </div>
                             </div>
                             <footer class="card-footer">
-                                <a href="#" class="card-footer-item">View All</a>
+                                <a href="/admin/submissions" class="card-footer-item">View All</a>
                             </footer>
                         </div>
                     </div>
@@ -290,8 +292,8 @@ overflow-y: scroll;
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            <!-- </div> -->
+        <!-- </div> -->
     </div>
     <script type="text/javascript">
 <% include ../scripts/burger.ejs %>

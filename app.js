@@ -115,6 +115,23 @@ app.get('/login', (req, res, next) => {
   }
 });
 
+app.get('/logout', (req, res, next) => {
+  req.session.loggedIn = false;
+  res.redirect('/');
+});
+
+app.get('/register', (req, res, next) => {
+  if (req.session.loggedIn) {
+    if (req.session.userType === 'student') {
+      res.redirect('/dashboard');
+    } else if (req.session.userType === 'admin') {
+      res.redirect('/admin');
+    }
+  } else {
+    res.render('pages/register.ejs');
+  }
+});
+
 app.get('/leaderboard', (req, res, next) => {
   let resOptions = {};
   if (req.session.loggedIn) {
