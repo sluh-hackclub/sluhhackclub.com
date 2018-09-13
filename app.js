@@ -11,6 +11,7 @@ const apiV1 = require('./api/v1/v1.js');
 
 const User = require('./api/v1/models/user.js');
 const Submission = require('./api/v1/models/submission.js');
+const LeaderboardEntry = require('./api/v1/models/leaderboardEntry.js');
 
 if (fs.existsSync(path.join(__dirname, '/.env'))) {
   dotenv.load({ path: '.env' });
@@ -133,6 +134,12 @@ app.get('/register', (req, res, next) => {
 });
 
 app.get('/leaderboard', (req, res, next) => {
+  // const newLeaderboardEntry = new LeaderboardEntry({
+  //   name: 'Daniel Blittschau',
+  //   current_score: '0',
+  //   total_score: '500'
+  // });
+  // newLeaderboardEntry.save();
   let resOptions = {};
   if (req.session.loggedIn) {
     if (req.session.userType === 'student') {
@@ -148,22 +155,31 @@ app.get('/leaderboard', (req, res, next) => {
     resOptions.loggedIn = false;
   }
   // BEGIN TEMPORARY DATA
-  resOptions.leaderboardRankings = [
-    {name: 'Micah', currentProjectScore: '100', totalScore: '200'},
-    {name: 'Daniel', currentProjectScore: '0', totalScore: '500'},
-    {name: 'Sean', currentProjectScore: '0', totalScore: '100'}
-  ];
-  resOptions.currentProject = 'Personal Dashboard';
-  resOptions.submissionCount = '60';
-  resOptions.rankedMemberCount = '72';
-  // END TEMPORARY DATA
-  // sort array of rankings
-  resOptions.leaderboardRankings.sort((a, b) => {
-    return Number(b.totalScore) - Number(a.totalScore);
+  // resOptions.leaderboardRankings = [
+  //   {name: 'Micah', currentProjectScore: '100', totalScore: '200'},
+  //   {name: 'Daniel', currentProjectScore: '0', totalScore: '500'},
+  //   {name: 'Ben', currentProjectScore: '0', totalScore: '500'},
+  //   {name: 'Sean', currentProjectScore: '0', totalScore: '100'}
+  // ];
+  LeaderboardEntry.find({}).then(doc => {
+    resOptions.rankedMemberCount = doc.length;
+    resOptions.submissionCount = doc.length;
+    console.log(doc);
+    resOptions.leaderboardRankings = doc;
+    // console.log(resOptions.leaderboardRankings);
+    resOptions.currentProject = 'Personal Dashboard';
+    // resOptions.submissionCount = '60';
+    // resOptions.rankedMemberCount = await User.count();
+    // END TEMPORARY DATA
+    // sort array of rankings
+    resOptions.leaderboardRankings.sort((a, b) => {
+      return Number(b.totalScore) - Number(a.totalScore);
+    });
+    // limit array to 10 entries
+    // disabled at the Micah's request
+    // resOptions.leaderboardRankings.splice(10);
+    res.render('pages/leaderboard.ejs', resOptions);
   });
-  // limit array to 10 entries
-  resOptions.leaderboardRankings.splice(10);
-  res.render('pages/leaderboard.ejs', resOptions);
 });
 
 app.get('/admin', (req, res, next) => {
