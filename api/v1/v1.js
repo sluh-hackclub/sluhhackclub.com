@@ -38,7 +38,9 @@ router.post('/auth', (req, res, next) => {
         success: true,
         loggedIn: true,
         userType: 'student',
-        redirectTo: '/dashboard'
+        // redirectTo: '/dashboard'
+        // TODO revert this later
+        redirectTo: '/leaderboard'
       });
     } else if (req.session.userType === 'admin') {
       res.status(200).json({
@@ -75,7 +77,9 @@ router.post('/auth', (req, res, next) => {
                   success: true,
                   loggedIn: true,
                   userType: 'student',
-                  redirectTo: '/dashboard'
+                  // redirectTo: '/dashboard'
+                  // TODO revert this later
+                  redirectTo: '/leaderboard'
                 });
               } else if (doc[0].user_type === 'admin') {
                 res.status(200).json({
@@ -137,7 +141,9 @@ router.post('/register', (req, res, next) => {
         registered: false,
         loggedIn: true,
         userType: 'student',
-        redirectTo: '/dashboard'
+        // redirectTo: '/dashboard'
+        // TODO revert this later
+        redirectTo: '/leaderboard'
       });
     } else if (req.session.userType === 'admin') {
       res.status(200).json({
@@ -208,7 +214,9 @@ router.post('/register', (req, res, next) => {
                     success: true,
                     registered: true,
                     loggedIn: true,
-                    redirectTo: '/dashboard'
+                    // redirectTo: '/dashboard'
+                    // TODO revert this later
+                    redirectTo: '/leaderboard'
                   });
                   // after the user is saved, send a slack invite to the email
                   request.post({

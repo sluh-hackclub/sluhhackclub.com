@@ -219,6 +219,18 @@ app.get('/slack', (req, res, next) => {
   res.redirect('https://sluhhackclub.slack.com');
 });
 
+app.get('/dashboard', (req, res, next) => {
+  if (req.session.loggedIn) {
+    if (req.session.userType === 'admin') {
+      res.redirect('/admin');
+    } else {
+      res.render('pages/dashboard_temp.ejs');
+    }
+  } else {
+    res.redirect('/login');
+  }
+});
+
 app.get('/admin/submissions/:submissionId', (req, res, next) => {
   if (req.session.loggedIn && req.session.userType === 'admin') {
     let resOptions = {};
