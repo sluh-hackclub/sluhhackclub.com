@@ -40,14 +40,14 @@ html,body {
   padding-bottom: 2rem;
   color: #209cee;
 }
-.card-content .content {
+/* .card-content .content {
   font-size: 14px;
   margin: 1rem 1rem;
 }
 .card-content .content h4 {
   font-size: 16px;
   font-weight: 700;
-}
+} */
 .card {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
   margin-bottom: 2rem;
@@ -87,6 +87,21 @@ footer li:before {
 }
 
 /* /hero.css */
+
+/* Boxes at bottom */
+.language-box-text {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.language-box {
+  padding-bottom: 0;
+}
+.language-box-card {
+  margin-bottom: 10px;
+}
+#bottom-text {
+  margin-bottom: 30px;
+}
 
 /* Mobile is assumed (Portait) */
 #main-image-div {
@@ -173,6 +188,22 @@ footer li:before {
                     </span>
                   <% } %>
                 </div>
+                <!-- <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link" href="/documentation/overview/start/">
+                    More
+                  </a>
+                  <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="/documentation/overview/start/">
+                      Mechandise
+                    </a>
+                    <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
+                      Extras
+                    </a>
+                    <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                      Media
+                    </a>
+                  </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -191,13 +222,155 @@ footer li:before {
     </section>
     <div class="box cta">
       <p class="has-text-centered">
-        <span class="tag is-warning">Notice</span> sluhhackclub.com is currently under construction. Any pages missing are currently being worked on.
+        <span class="tag is-warning">Notice</span>&nbsp;&nbsp;sluhhackclub.com is currently under construction. Any pages missing are currently being worked on.
       </p>
     </div>
     <section class="container" id="bottom-text">
       <div class="intro column is-8 is-offset-2">
-        <h2 class="title">Anyone can join SLUH Hack Club!</h2><br>
-        <p class="subtitle">You don't have to be a programmer or have any exprerience coding to join, this is a club for learning!</p>
+        <h2 class="title" style="letter-spacing: -0.5px;">No Experience Necessary!</h2><br>
+        <p class="subtitle">SLUH Hack Club was designed for people both with and without programming experience.<!--<br><b><a href="/join">Join Now!</a></b>--></p>
+      </div>
+      <div class="intro column is-8 is-offset-2" style="padding:20px 0px 0px 0px;">
+        <h3 class="title" style="letter-spacing: -0.5px;font-size:28px;">Some of the things we do:</h2><br>
+        <!-- <p class="subtitle">You don't have to be a programmer or have any exprerience coding to join, this is a club for learning!</p> -->
+      </div>
+      <div class="columns">
+        <div class="column language-box">
+          <div class="card language-box-card">
+            <div class="card-content">
+              <p class="subtitle language-box-text">Frontend Web Design</p>
+            </div>
+          </div>
+        </div>
+        <div class="column language-box">
+          <div class="card language-box-card">
+            <div class="card-content">
+              <p class="subtitle language-box-text">Backend Development</p>
+            </div>
+          </div>
+        </div>
+        <div class="column language-box">
+          <div class="card language-box-card">
+            <div class="card-content">
+              <p class="subtitle language-box-text">Database Architecture</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column language-box">
+          <div class="card language-box-card">
+            <div class="card-content">
+              <p class="subtitle language-box-text">Networking</p>
+            </div>
+          </div>
+        </div>
+        <div class="column language-box">
+          <div class="card language-box-card">
+            <div class="card-content">
+              <p class="subtitle language-box-text">Linux / CLI</p>
+            </div>
+          </div>
+        </div>
+        <div class="column language-box">
+          <div class="card language-box-card">
+            <div class="card-content">
+              <p class="subtitle language-box-text">APIs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column language-box">
+          <div class="card language-box-card">
+            <div class="card-content">
+              <p class="subtitle language-box-text">Encryption</p>
+            </div>
+          </div>
+        </div>
+        <div class="column language-box">
+          <div class="card language-box-card">
+            <div class="card-content">
+              <p class="subtitle language-box-text">Source Control (Git)</p>
+            </div>
+          </div>
+        </div>
+        <div class="column language-box">
+          <div class="card language-box-card">
+            <div class="card-content">
+              <p class="subtitle language-box-text"><b>And Much More!</b></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="intro column is-8 is-offset-2" style="padding:20px 0px 0px 0px;">
+        <h3 class="title" style="letter-spacing: -0.5px;font-size:28px;">Our Core Team</h2><br>
+      </div>
+      <div class="columns">
+        <div class="column"></div>
+        <div class="column">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-1by1">
+                <img src="https://avatars1.githubusercontent.com/u/28673563?s=460&v=4">
+                <!-- <img src="/micah.jpg"> -->
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">Micah See</p>
+                  <p class="subtitle is-6">President</p>
+                </div>
+              </div>
+              <!-- <div class="content">
+                Some example text
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-1by1">
+                <img src="https://avatars3.githubusercontent.com/u/11153164">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">Daniel Blittschau</p>
+                  <p class="subtitle is-6">Vice President</p>
+                </div>
+              </div>
+              <!-- <div class="content">
+                Some example text
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-1by1">
+                <!-- <img src="https://bulma.io/images/placeholders/480x480.png" alt="Placeholder image"> -->
+                <img src="/sean.png">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">Sean O'Brien</p>
+                  <p class="subtitle is-6">Director of Logistics</p>
+                </div>
+              </div>
+              <!-- <div class="content">
+                Some example text
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="column"></div>
       </div>
     </section>
     <footer class="footer" style="padding:1.5rem;">
@@ -213,9 +386,9 @@ footer li:before {
           </div>
         </div>
       </div>
-      <script type="text/javascript">
-<% include ../scripts/burger.ejs %>
-      </script>
     </footer>
+    <script type="text/javascript">
+    <% include ../scripts/burger.ejs %>
+    </script>
   </body>
 </html>

@@ -9,14 +9,9 @@ const userTypes = require('./userTypes.json');
 const User = require('./models/user.js');
 const Submission = require('./models/submission.js');
 
-const isNumeric = value => {
-  return /^-{0,1}\d+$/.test(value);
-};
+const isNumeric = value => /^-{0,1}\d+$/.test(value);
 
-const validateEmail = email => {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-};
+const validateEmail = email => /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 
 const validateStudentID = studentID => {
   if (studentID.length > 7 || studentID.length < 7 || !isNumeric(studentID)) {
@@ -278,7 +273,6 @@ router.post('/register', (req, res, next) => {
 });
 
 router.get('/logout', (req, res, next) => {
-  // req.session.destroy();
   req.session.loggedIn = false;
   res.status(200).json({
     success: true,
@@ -315,68 +309,93 @@ router.patch('/submission/:submissionId', (req, res, next) => {
         .then(result => {
           console.log(result);
         })
-        .catch(error => {
-          console.error(error);
+        .catch(err => {
+          console.error(err);
         });
       res.status(200).json({});
     } else {
-      res.status(400).json({
-        success: false,
-        error: 'Invalid submission id'
-      });
+      // res.status(400).json({
+      //   success: false,
+      //   error: 'Invalid submission id'
+      // });
+      const error = new Error('Bad request');
+      error.status = 400;
+      next(error);
     }
   } else {
-    res.status(401).json({
-      success: false,
-      error: '401 Forbidden'
-    });
+    // res.status(401).json({
+    //   success: false,
+    //   error: '401 Forbidden'
+    // });
+    const error = new Error('Not authorized');
+    error.status = 401;
+    next(error);
   }
 });
 
 router.post('/slack_invite', (req, res, next) => {
-  if (typeof req.body.email !== 'undefined') {
-    request.post({
-      url: 'https://sluhhackclub.slack.com/api/users.admin.invite',
-      form: {
-        email: req.body.email,
-        token: process.env.SLACK_OAUTH,
-        set_active: true
-      }
-    }, (error, httpResponse, body) => {
-      if (error) {
-        console.error(error);
-        res.status(500).json({
-          success: false,
-          error: 'Internal server error'
-        });
-      } else {
-        body = JSON.parse(body);
-        // console.log(body);
-        if (body.ok) {
-          res.status(200).json({
-            success: true,
-            invited: true
-          });
-        } else if (body.error === 'already_invited' || body.error === 'already_in_team' || body.error === 'user_disabled') {
-          res.status(200).json({
-            success: true,
-            invited: false,
-            message: 'Already in workspace'
-          });
-        } else {
-          console.error(body);
-          res.status(500).json({
-            success: false,
-            error: 'Internal server error'
-          });
+  if (req.session.loggedIn && req.session.userType === 'admin') {
+    if (typeof req.body.email !== 'undefined') {
+      request.post({
+        url: 'https://sluhhackclub.slack.com/api/users.admin.invite',
+        form: {
+          email: req.body.email,
+          token: process.env.SLACK_OAUTH,
+          set_active: true
         }
-      }
-    });
+      }, (err, httpResponse, body) => {
+        if (err) {
+          console.error(err);
+          // res.status(500).json({
+          //   success: false,
+          //   error: 'Internal server error'
+          // });
+          const error = new Error('Internal server error');
+          error.status = 500;
+          next(error);
+        } else {
+          body = JSON.parse(body);
+          // console.log(body);
+          if (body.ok) {
+            res.status(200).json({
+              success: true,
+              invited: true
+            });
+          } else if (body.error === 'already_invited' || body.error === 'already_in_team' || body.error === 'user_disabled') {
+            res.status(200).json({
+              success: true,
+              invited: false,
+              message: 'Already in workspace'
+            });
+          } else {
+            console.error(body);
+            // res.status(500).json({
+            //   success: false,
+            //   error: 'Internal server error'
+            // });
+            const error = new Error('Internal server error');
+            error.status = 500;
+            next(error);
+          }
+        }
+      });
+    } else {
+      // res.status(400).json({
+      //   success: false,
+      //   error: 'Bad request'
+      // });
+      const error = new Error('Bad request');
+      error.status = 400;
+      next(error);
+    }
   } else {
-    res.status(400).json({
-      success: false,
-      error: 'Bad request'
-    });
+    // res.status(401).json({
+    //   success: false,
+    //   error: 'Not authorized'
+    // });
+    const error = new Error('Not authorized');
+    error.status = 401;
+    next(error);
   }
 });
 
@@ -388,11 +407,9 @@ router.use((req, res, next) => {
 });
 
 router.use((error, req, res, next) => {
-  res.status(error.status || 500);
-  res.json({
-    error: {
-      message: error.message
-    }
+  res.status(error.status || 500).json({
+    success: false,
+    error: error.message || 'Internal server error'
   });
 });
 

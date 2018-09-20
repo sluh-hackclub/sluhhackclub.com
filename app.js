@@ -121,7 +121,7 @@ app.get('/logout', (req, res, next) => {
   res.redirect('/');
 });
 
-app.get('/register', (req, res, next) => {
+app.get('/join', (req, res, next) => {
   if (req.session.loggedIn) {
     if (req.session.userType === 'student') {
       res.redirect('/dashboard');
@@ -212,7 +212,15 @@ app.get('/admin', (req, res, next) => {
 });
 
 app.get('/slack_invite', (req, res, next) => {
-  res.render('pages/slack.ejs');
+  if (req.session.loggedIn) {
+    if (req.session.userType === 'admin') {
+      res.render('pages/slack.ejs');
+    } else {
+      res.redirect('/dashboard');
+    }
+  } else {
+    res.redirect('/login');
+  }
 });
 
 app.get('/slack', (req, res, next) => {
