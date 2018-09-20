@@ -164,7 +164,7 @@ app.get('/leaderboard', (req, res, next) => {
   LeaderboardEntry.find({}).then(doc => {
     resOptions.rankedMemberCount = doc.length;
     resOptions.submissionCount = doc.length;
-    console.log(doc);
+    // console.log(doc);
     resOptions.leaderboardRankings = doc;
     // console.log(resOptions.leaderboardRankings);
     resOptions.currentProject = 'Personal Dashboard';
@@ -200,7 +200,7 @@ app.get('/admin', (req, res, next) => {
           // console.log(doc);
           resOptions.newSubmissions = doc;
           res.render('pages/admin.ejs', resOptions);
-          console.log(typeof doc[0]._id.toString());
+          // console.log(typeof doc[0]._id.toString());
         });
       }
     });
@@ -274,7 +274,7 @@ app.get('/admin/submissions/:submissionId', (req, res, next) => {
                 error.status = 500;
                 next(error);
               } else {
-                console.log(data);
+                // console.log(data);
                 resOptions.submissionFirstName = data[0].first_name;
                 resOptions.submissionLastName = data[0].last_name;
                 res.render('pages/submission.ejs', resOptions);
