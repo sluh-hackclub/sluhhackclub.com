@@ -1,0 +1,20 @@
+# sluhhackclub.com
+server {
+	listen 443 ssl;
+	ssl_certificate /etc/ssl/certs/sluhhackclub.com.cert.pem;
+	ssl_certificate_key /etc/ssl/private/sluhhackclub.com.key;
+	location / {
+		proxy_pass                  http://127.0.0.1:3002;
+		proxy_set_header Host       $host;
+		proxy_set_header X-Real-Ip  $remote_addr;
+	}
+}
+
+# Redirect https://www.sluhhackclub.com to https://sluhhackclub.com
+server {
+	server_name www.sluhhackclub.com;
+	listen 443 ssl;
+	ssl_certificate /etc/ssl/certs/sluhhackclub.com.cert.pem;
+	ssl_certificate_key /etc/ssl/private/sluhhackclub.com.key;
+	return 301 https://sluhhackclub.com$request_uri;
+}
