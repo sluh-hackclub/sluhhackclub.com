@@ -3,122 +3,14 @@
     <% include ../partials/head.ejs %>
     <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Bulma Version 0.7.1-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/hero.css">
-    <link rel="stylesheet" type="text/css" href="/bulma-checkradio.min.css">
-    <style media="screen">
-
-/* hero.css */
-
-html,body {
-  background: #EFF3F4;
-  font-family: 'Open Sans', serif;
-}
-.hero-body .container {
-  max-width: 700px;
-}
-.hero-body .title {
-  color: hsl(192,17%,99%) !important;
-}
-.hero-body .subtitle {
-  color: hsl(192,17%,99%) !important;
-  padding-top: 2rem;
-  line-height: 1.5;
-}
-.features {
-  padding: 5rem 0;
-}
-.box.cta {
-  border-radius: 0;
-  border-left: none;
-  border-right: none;
-}
-.card-image > .fas, .card-image > .fab {
-  font-size: 8rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  color: #209cee;
-}
-.card-content .content {
-  font-size: 14px;
-  margin: 1rem 1rem;
-}
-.card-content .content h4 {
-  font-size: 16px;
-  font-weight: 700;
-}
-.card {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-  margin-bottom: 2rem;
-}
-.intro {
-  padding: 5rem 0;
-  text-align: center;
-}
-.sandbox {
-  padding: 5rem 0;
-}
-.tile.notification {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-.is-shady {
-animation: flyintoright .4s backwards;
-background: #fff;
-box-shadow: rgba(0, 0, 0, .1) 0 1px 0;
-border-radius: 4px;
-display: inline-block;
-margin: 10px;
-position: relative;
-transition: all .2s ease-in-out;
-}
-.is-shady:hover {
-box-shadow: 0 10px 16px rgba(0, 0, 0, .13), 0 6px 6px rgba(0, 0, 0, .19);
-}
-/*adds font awesome stars*/
-footer li:before {
-  content: '\f1b2';
-  font-family: 'FontAwesome';
-  float: left;
-  margin-left: -1.5em;
-  color: #147efb;
-}
-
-/* /hero.css */
-
-/* Mobile is assumed (Portait) */
-#main-image-div {
-  margin-top: -20px;
-  margin-bottom: 20px;
-}
-
-#main-image {
-  width: 400px;
-}
-
-/* Large Tablets */
-@media only screen and (min-width: 770px) {
-
-#main-image-div {
-  margin-top: -120px;
-}
-
-}
-
-@media only screen and (max-width: 1088px) {
-    #bottom-section {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-}
-
-    </style>
-
-  <style></style></head>
+    <link rel="stylesheet" type="text/css" href="/main-hero.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    </head>
   <body>
+    <div style="flex: 1 0 auto;">
     <section class="hero is-info is-medium is-bold">
       <div class="hero-head">
         <nav class="navbar">
@@ -140,7 +32,7 @@ footer li:before {
                   <ul>
                     <li><a href="/admin">Admin</a></li>
                     <li><a href="/admin/projects">Projects</a></li>
-                    <li class="is-active"><a>Submissions</a></li>
+                    <li class="is-active"><a href="/admin/submissions">Submissions</a></li>
                   </ul>
                   <!-- <div class="navbar-item">
                     <div class="navbar-dropdown">
@@ -191,7 +83,7 @@ footer li:before {
         </nav>
       </div>
       <div class="hero-body" style="
-    padding: 48px;
+    padding: 0px 0px 15px 0px;
 ">
         <div class="container has-text-centered">
 
@@ -212,7 +104,7 @@ footer li:before {
     <a href="<%= submissionURL %>"><%= submissionURL %></a></div><div style="margin-top: 10px;margin-bottom: -10px;">By: <%= submissionFirstName %> <%= submissionLastName %></div><!-- <br><span class="tag is-danger">Not Reviewed</span> -->
     <p></p>
     </div>
-    <section id="bottom-section" class="container" style="
+    <section id="bottom-text" class="container" style="
     /* margin-left:  10px; */
     /* margin-right:  10px; */
 ">
@@ -220,35 +112,63 @@ footer li:before {
       <div class="field" style="
     /* max-width: 80%; */
 ">
-  <label class="label">Reviewer Notes</label>
+  <label class="label">Reviewer Notes - This should&trade; automatically update with the backend</label>
   <div class="control">
-    <textarea class="textarea" placeholder="Textarea"></textarea>
+    <textarea class="textarea"></textarea>
   </div>
-</div><div id="bottom-button-div" class="field has-text-centered">
+</div><div id="bottom-button-div" class="field has-text-centered" style="margin-bottom:50px;">
   <a>
     <% if (submissionReviewed) { %>
-      <span id="bottom-button-span" class="is-medium tag is-success"><i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed</span>
+      <span id="bottom-button-span" class="is-medium tag is-success"><i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed (click)</span>
     <% } else { %>
-      <span id="bottom-button-span" class="is-medium tag is-danger"><i class="fas fa-times"></i>&nbsp;&nbsp;Submission Not Reviewed</span>
+      <span id="bottom-button-span" class="is-medium tag is-danger"><i class="fas fa-times"></i>&nbsp;&nbsp;Submission Not Reviewed (click)</span>
     <% } %>
   </a></div>
 
 
     </section>
+  </div>
+    <% include ../partials/footer.ejs %>
 
 
 <script type="text/javascript">
+
+var submissionId = '<%= submissionId %>';
+
 document.getElementById('bottom-button-span').onclick = function () {
   document.getElementById('bottom-button-span').classList.toggle('is-success');
   document.getElementById('bottom-button-span').classList.toggle('is-danger');
-  if (document.getElementById('bottom-button-span').innerHTML === '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed') {
-    // was green, now red
-    document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-times"></i>&nbsp;&nbsp;Submission Not Reviewed';
+  if (document.getElementById('bottom-button-span').innerHTML === '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed (click)') {
+    console.log('was green, now red');
+    updateSubmissionStatus('notreviewed');
+    document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-times"></i>&nbsp;&nbsp;Submission Not Reviewed (click)';
   } else {
-    // was red, now green
-    document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed';
+    console.log('was red, now green');
+    updateSubmissionStatus('reviewed');
+    document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed (click)';
   }
 };
+
+function updateSubmissionStatus(newStatus) {
+  if (newStatus === 'reviewed' || newStatus === 'notreviewed') {
+    if (newStatus === 'reviewed') {
+      var reviewStatus = true;
+    } else {
+      var reviewStatus = false;
+    }
+    axios.patch('/api/v1/submission/' + submissionId, {
+      reviewed: reviewStatus
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+  } else {
+    console.error('Invalid parameter passed to updateSubmissionStatus()');
+  }
+}
 
 <% include ../scripts/burger.ejs %>
 </script>

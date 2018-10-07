@@ -1,0 +1,78 @@
+<html><head>
+    <title>Project "<%= projectTitle %>" | SLUH Hack Club</title>
+    <% include ../partials/head.ejs %>
+    <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- Bulma Version 0.7.1-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="/main-hero.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    </head>
+  <body>
+    <div style="flex: 1 0 auto;">
+    <section class="hero is-info is-medium is-bold">
+      <div class="hero-head">
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="../">
+                <img src="/short.png" alt="Logo">
+              </a>
+              <span class="navbar-burger burger" data-target="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+              <div class="navbar-end">
+                <div class="tabs is-right">
+                  <ul>
+                    <li><a href="/admin">Admin</a></li>
+                    <li class="is-active"><a href="/admin/projects">Projects</a></li>
+                    <li><a href="/admin/submissions">Submissions</a></li>
+                  </ul>
+                  <span class="navbar-item">
+                    <a class="button is-white is-outlined" href="/logout">
+                      <span class="icon">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                      <span title="Logout">Logout</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </section>
+    <div class="box cta has-text-centered">
+      <p class="has-text-centered">
+        <b class="title"><%= projectTitle %></b>
+      </p>
+      <p class="subtitle" style="margin-bottom:0;">
+        <%= projectDescription %>
+      </p>
+    </div>
+    <section id="bottom-text" class="container">
+
+    </section>
+  </div>
+
+<% include ../partials/footer.ejs %>
+
+
+<script type="text/javascript">
+
+var projectId = '<%= projectId %>';
+
+
+
+<% include ../scripts/burger.ejs %>
+</script>
+
+
+</body>
+</html>

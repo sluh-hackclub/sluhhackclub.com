@@ -7,388 +7,253 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Bulma Version 0.7.1-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
-    <style media="screen">
-
-/* hero.css */
-
-html,body {
-  background: #EFF3F4;
-  font-family: 'Open Sans', serif;
-}
-.hero-body .container {
-  max-width: 700px;
-}
-.hero-body .title {
-  color: hsl(192,17%,99%) !important;
-}
-.hero-body .subtitle {
-  color: hsl(192,17%,99%) !important;
-  padding-top: 2rem;
-  line-height: 1.5;
-}
-.features {
-  padding: 5rem 0;
-}
-.box.cta {
-  border-radius: 0;
-  border-left: none;
-  border-right: none;
-}
-.card-image > .fas, .card-image > .fab {
-  font-size: 8rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  color: #209cee;
-}
-/* .card-content .content {
-  font-size: 14px;
-  margin: 1rem 1rem;
-}
-.card-content .content h4 {
-  font-size: 16px;
-  font-weight: 700;
-} */
-.card {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-  margin-bottom: 2rem;
-}
-.intro {
-  padding: 5rem 0;
-  text-align: center;
-}
-.sandbox {
-  padding: 5rem 0;
-}
-.tile.notification {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-.is-shady {
-animation: flyintoright .4s backwards;
-background: #fff;
-box-shadow: rgba(0, 0, 0, .1) 0 1px 0;
-border-radius: 4px;
-display: inline-block;
-margin: 10px;
-position: relative;
-transition: all .2s ease-in-out;
-}
-.is-shady:hover {
-box-shadow: 0 10px 16px rgba(0, 0, 0, .13), 0 6px 6px rgba(0, 0, 0, .19);
-}
-/*adds font awesome stars*/
-footer li:before {
-  content: '\f1b2';
-  font-family: 'FontAwesome';
-  float: left;
-  margin-left: -1.5em;
-  color: #147efb;
-}
-
-/* /hero.css */
-
-/* Boxes at bottom */
-.language-box-text {
-  text-align: center;
-  font-size: 1.5rem;
-}
-.language-box {
-  padding-bottom: 0;
-}
-.language-box-card {
-  margin-bottom: 10px;
-}
-#bottom-text {
-  margin-bottom: 30px;
-}
-
-/* Mobile is assumed (Portait) */
-#main-image-div {
-  margin-top: -20px;
-  margin-bottom: 20px;
-}
-
-#main-image {
-  width: 400px;
-}
-
-/* Large Tablets */
-@media only screen and (min-width: 770px) {
-
-#main-image-div {
-  margin-top: -120px;
-}
-
-}
-
-@media only screen and (max-width: 1087px) {
-
-#bottom-text {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-}
-    </style>
+    <link rel="stylesheet" href="/main-hero.css">
   </head>
   <body>
-    <section class="hero is-info is-medium is-bold">
-      <div class="hero-head">
-        <nav class="navbar">
-          <div class="container">
-            <div class="navbar-brand">
-              <a class="navbar-item" href="../">
-                <img src="/short.png" alt="Logo">
-              </a>
-              <span class="navbar-burger burger" data-target="navbarMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
-            </div>
-
-            <div id="navbarMenu" class="navbar-menu">
-              <div class="navbar-end">
-                <div class="tabs is-right">
-                  <ul>
-                    <li class="is-active"><a>Home</a></li>
-                    <!-- <li><a href="/projects">Projects</a></li>
-                    <li><a href="/team">Team</a></li> -->
-                    <li><a href="/leaderboard">Leaderboard</a></li>
-                  </ul>
-                  <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
-                    <% if (typeof userType !== 'undefined' && userType === 'student') { %>
+    <div style="flex: 1 0 auto;">
+      <section class="hero is-info is-medium is-bold">
+        <div class="hero-head">
+          <nav class="navbar">
+            <div class="container">
+              <div class="navbar-brand">
+                <span class="navbar-item" href="../">
+                  <img src="/short.png" alt="Logo">
+                </span>
+                <span class="navbar-burger burger" data-target="navbarMenu">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </div>
+              <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                  <div class="tabs is-right">
+                    <ul>
+                      <li class="is-active"><a>Home</a></li>
+                      <!-- <li><a href="/projects">Projects</a></li>
+                      <li><a href="/team">Team</a></li> -->
+                      <li><a href="/leaderboard">Leaderboard</a></li>
+                    </ul>
+                    <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
+                      <% if (typeof userType !== 'undefined' && userType === 'student') { %>
+                        <span class="navbar-item">
+                          <a class="button is-white is-outlined" href="/dashboard">
+                            <span class="icon">
+                              <i class="fas fa-tachometer-alt"></i>
+                            </span>
+                            <span title="Dashboard">Dashboard</span>
+                          </a>
+                        </span>
+                      <% } else if (typeof userType !== 'undefined' && userType === 'admin') { %>
+                        <span class="navbar-item">
+                          <a class="button is-white is-outlined" href="/admin">
+                            <span class="icon">
+                              <i class="fas fa-tachometer-alt"></i>
+                            </span>
+                            <span title="Admin">Admin</span>
+                          </a>
+                        </span>
+                      <% } %>
+                    <% } else { %>
                       <span class="navbar-item">
-                        <a class="button is-white is-outlined" href="/dashboard">
+                        <a class="button is-white is-outlined" href="/login">
                           <span class="icon">
-                            <i class="fas fa-tachometer-alt"></i>
+                            <i class="fas fa-lock"></i>
                           </span>
-                          <span title="Dashboard">Dashboard</span>
-                        </a>
-                      </span>
-                    <% } else if (typeof userType !== 'undefined' && userType === 'admin') { %>
-                      <span class="navbar-item">
-                        <a class="button is-white is-outlined" href="/admin">
-                          <span class="icon">
-                            <i class="fas fa-tachometer-alt"></i>
-                          </span>
-                          <span title="Admin">Admin</span>
+                          <span title="Login">Login</span>
                         </a>
                       </span>
                     <% } %>
-                  <% } else { %>
-                    <span class="navbar-item">
-                      <a class="button is-white is-outlined" href="/login">
-                        <span class="icon">
-                          <i class="fas fa-lock"></i>
-                        </span>
-                        <span title="Login">Login</span>
-                      </a>
-                    </span>
-                  <% } %>
-                </div>
-                <!-- <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link" href="/documentation/overview/start/">
-                    More
-                  </a>
-                  <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="/documentation/overview/start/">
-                      Mechandise
-                    </a>
-                    <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
-                      Extras
-                    </a>
-                    <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
-                      Media
-                    </a>
                   </div>
+                  <!-- <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" href="/documentation/overview/start/">
+                      More
+                    </a>
+                    <div class="navbar-dropdown is-boxed">
+                      <a class="navbar-item" href="/documentation/overview/start/">
+                        Mechandise
+                      </a>
+                      <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
+                        Extras
+                      </a>
+                      <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                        Media
+                      </a>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <div id="main-image-div">
+              <img src="/icon.png" alt="SLUH Hack Club" id="main-image">
+            </div>
+            <h2 class="subtitle">
+            SLUH Hack Club is a programming club focused on <b>making</b>. We have monthly <b>programming competitions</b> where we compete to make the best project using the skills learned in the club.
+            </h2>
+          </div>
+        </div>
+      </section>
+      <div class="box cta">
+        <p class="has-text-centered">
+          <span class="tag is-warning">Notice</span>&nbsp;&nbsp;sluhhackclub.com is currently under construction. Any pages missing are currently being worked on.
+        </p>
+      </div>
+      <section class="container" id="bottom-text">
+        <div class="intro column is-8 is-offset-2">
+          <h2 class="title" style="letter-spacing: -0.5px;">No Experience Necessary!</h2><br>
+          <p class="subtitle">SLUH Hack Club was designed for people both with and without programming experience.<!--<br><b><a href="/join">Join Now!</a></b>--></p>
+        </div>
+        <div class="intro column is-8 is-offset-2" style="padding:20px 0px 0px 0px;">
+          <h3 class="title" style="letter-spacing: -0.5px;font-size:28px;">Some of the things we do:</h2><br>
+          <!-- <p class="subtitle">You don't have to be a programmer or have any exprerience coding to join, this is a club for learning!</p> -->
+        </div>
+        <div class="columns">
+          <div class="column language-box">
+            <div class="card language-box-card">
+              <div class="card-content">
+                <p class="subtitle language-box-text">Frontend Web Design</p>
+              </div>
+            </div>
+          </div>
+          <div class="column language-box">
+            <div class="card language-box-card">
+              <div class="card-content">
+                <p class="subtitle language-box-text">Backend Development</p>
+              </div>
+            </div>
+          </div>
+          <div class="column language-box">
+            <div class="card language-box-card">
+              <div class="card-content">
+                <p class="subtitle language-box-text">Database Architecture</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column language-box">
+            <div class="card language-box-card">
+              <div class="card-content">
+                <p class="subtitle language-box-text">Networking</p>
+              </div>
+            </div>
+          </div>
+          <div class="column language-box">
+            <div class="card language-box-card">
+              <div class="card-content">
+                <p class="subtitle language-box-text">Linux / CLI</p>
+              </div>
+            </div>
+          </div>
+          <div class="column language-box">
+            <div class="card language-box-card">
+              <div class="card-content">
+                <p class="subtitle language-box-text">APIs</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column language-box">
+            <div class="card language-box-card">
+              <div class="card-content">
+                <p class="subtitle language-box-text">Encryption</p>
+              </div>
+            </div>
+          </div>
+          <div class="column language-box">
+            <div class="card language-box-card">
+              <div class="card-content">
+                <p class="subtitle language-box-text">Source Control (Git)</p>
+              </div>
+            </div>
+          </div>
+          <div class="column language-box">
+            <div class="card language-box-card">
+              <div class="card-content">
+                <p class="subtitle language-box-text"><b>And Much More!</b></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="intro column is-8 is-offset-2" style="padding:20px 0px 0px 0px;">
+          <h3 class="title" style="letter-spacing: -0.5px;font-size:28px;">Our Core Team</h2><br>
+        </div>
+        <div class="columns">
+          <div class="column"></div>
+          <div class="column core-team-picture">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-1by1">
+                  <img src="https://avatars1.githubusercontent.com/u/28673563?s=460&v=4">
+                  <!-- <img src="/micah.jpg"> -->
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Micah See</p>
+                    <p class="subtitle is-6">President</p>
+                  </div>
+                </div>
+                <!-- <div class="content">
+                  Some example text
                 </div> -->
               </div>
             </div>
           </div>
-        </nav>
-      </div>
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <div id="main-image-div">
-            <img src="/icon.png" alt="SLUH Hack Club" id="main-image">
+          <div class="column core-team-picture">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-1by1">
+                  <img src="https://avatars3.githubusercontent.com/u/11153164">
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Daniel Blittschau</p>
+                    <p class="subtitle is-6">Vice President</p>
+                  </div>
+                </div>
+                <!-- <div class="content">
+                  Some example text
+                </div> -->
+              </div>
+            </div>
           </div>
-          <h2 class="subtitle">
-          SLUH Hack Club is a programming club focused on <b>making</b>. We have monthly <b>programming competitions</b> where we compete to make the best project using the skills learned in the club.
-          </h2>
+          <div class="column core-team-picture">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-1by1">
+                  <!-- <img src="https://bulma.io/images/placeholders/480x480.png" alt="Placeholder image"> -->
+                  <img src="/sean.png">
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4">Sean O'Brien</p>
+                    <p class="subtitle is-6">Director of Logistics</p>
+                  </div>
+                </div>
+                <!-- <div class="content">
+                  Some example text
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="column"></div>
         </div>
-      </div>
-    </section>
-    <div class="box cta">
-      <p class="has-text-centered">
-        <span class="tag is-warning">Notice</span>&nbsp;&nbsp;sluhhackclub.com is currently under construction. Any pages missing are currently being worked on.
-      </p>
+      </section>
     </div>
-    <section class="container" id="bottom-text">
-      <div class="intro column is-8 is-offset-2">
-        <h2 class="title" style="letter-spacing: -0.5px;">No Experience Necessary!</h2><br>
-        <p class="subtitle">SLUH Hack Club was designed for people both with and without programming experience.<!--<br><b><a href="/join">Join Now!</a></b>--></p>
-      </div>
-      <div class="intro column is-8 is-offset-2" style="padding:20px 0px 0px 0px;">
-        <h3 class="title" style="letter-spacing: -0.5px;font-size:28px;">Some of the things we do:</h2><br>
-        <!-- <p class="subtitle">You don't have to be a programmer or have any exprerience coding to join, this is a club for learning!</p> -->
-      </div>
-      <div class="columns">
-        <div class="column language-box">
-          <div class="card language-box-card">
-            <div class="card-content">
-              <p class="subtitle language-box-text">Frontend Web Design</p>
-            </div>
-          </div>
-        </div>
-        <div class="column language-box">
-          <div class="card language-box-card">
-            <div class="card-content">
-              <p class="subtitle language-box-text">Backend Development</p>
-            </div>
-          </div>
-        </div>
-        <div class="column language-box">
-          <div class="card language-box-card">
-            <div class="card-content">
-              <p class="subtitle language-box-text">Database Architecture</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column language-box">
-          <div class="card language-box-card">
-            <div class="card-content">
-              <p class="subtitle language-box-text">Networking</p>
-            </div>
-          </div>
-        </div>
-        <div class="column language-box">
-          <div class="card language-box-card">
-            <div class="card-content">
-              <p class="subtitle language-box-text">Linux / CLI</p>
-            </div>
-          </div>
-        </div>
-        <div class="column language-box">
-          <div class="card language-box-card">
-            <div class="card-content">
-              <p class="subtitle language-box-text">APIs</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column language-box">
-          <div class="card language-box-card">
-            <div class="card-content">
-              <p class="subtitle language-box-text">Encryption</p>
-            </div>
-          </div>
-        </div>
-        <div class="column language-box">
-          <div class="card language-box-card">
-            <div class="card-content">
-              <p class="subtitle language-box-text">Source Control (Git)</p>
-            </div>
-          </div>
-        </div>
-        <div class="column language-box">
-          <div class="card language-box-card">
-            <div class="card-content">
-              <p class="subtitle language-box-text"><b>And Much More!</b></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="intro column is-8 is-offset-2" style="padding:20px 0px 0px 0px;">
-        <h3 class="title" style="letter-spacing: -0.5px;font-size:28px;">Our Core Team</h2><br>
-      </div>
-      <div class="columns">
-        <div class="column"></div>
-        <div class="column">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-1by1">
-                <img src="https://avatars1.githubusercontent.com/u/28673563?s=460&v=4">
-                <!-- <img src="/micah.jpg"> -->
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-4">Micah See</p>
-                  <p class="subtitle is-6">President</p>
-                </div>
-              </div>
-              <!-- <div class="content">
-                Some example text
-              </div> -->
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-1by1">
-                <img src="https://avatars3.githubusercontent.com/u/11153164">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-4">Daniel Blittschau</p>
-                  <p class="subtitle is-6">Vice President</p>
-                </div>
-              </div>
-              <!-- <div class="content">
-                Some example text
-              </div> -->
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-1by1">
-                <!-- <img src="https://bulma.io/images/placeholders/480x480.png" alt="Placeholder image"> -->
-                <img src="/sean.png">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-4">Sean O'Brien</p>
-                  <p class="subtitle is-6">Director of Logistics</p>
-                </div>
-              </div>
-              <!-- <div class="content">
-                Some example text
-              </div> -->
-            </div>
-          </div>
-        </div>
-        <div class="column"></div>
-      </div>
-    </section>
-    <footer class="footer" style="padding:1.5rem;">
-      <div class="container">
-        <div class="content has-text-centered">
-          <div class="control level-item">
-            <a href="https://dblitt.com">
-              <div class="tags has-addons">
-                <span class="tag is-dark">website created by</span>
-                <span class="tag is-info" style="background-color: #EE7600;">Daniel Blittschau</span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <% include ../partials/footer.ejs %>
     <script type="text/javascript">
-    <% include ../scripts/burger.ejs %>
+<% include ../scripts/burger.ejs %>
     </script>
   </body>
 </html>

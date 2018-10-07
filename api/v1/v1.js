@@ -4,10 +4,14 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const request = require('request');
 
-const userTypes = require('./userTypes.json');
+const userTypes = [
+  'student',
+  'admin'
+];
 
-const User = require('./models/user.js');
-const Submission = require('./models/submission.js');
+const User = require('../../models/user.js');
+const Submission = require('../../models/submission.js');
+const Project = require('../../models/project.js');
 
 const isNumeric = value => /^-{0,1}\d+$/.test(value);
 
@@ -393,6 +397,52 @@ router.post('/slack_invite', (req, res, next) => {
     //   success: false,
     //   error: 'Not authorized'
     // });
+    const error = new Error('Not authorized');
+    error.status = 401;
+    next(error);
+  }
+});
+
+router.post('/createproject', (req, res, next) => {
+  if (req.session.loggedIn && req.session.userType === 'admin') {
+    if (req.body.projectName && req.body.projectDescription && req.body.projectDeadline) {
+      let newProject;
+      if (req.body.projectLink) {
+        newProject = new Project({
+          name: req.body.projectName,
+          description: req.body.projectDescription,
+          url: req.body.projectLink,
+          deadline: req.body.projectDeadline,
+          creation_time: Math.round((new Date()).getTime() / 1000),
+          last_modified: Math.round((new Date()).getTime() / 1000)
+        });
+      } else {
+        newProject = new Project({
+          name: req.body.projectName,
+          description: req.body.projectDescription,
+          deadline: req.body.projectDeadline,
+          creation_time: Math.round((new Date()).getTime() / 1000),
+          last_modified: Math.round((new Date()).getTime() / 1000)
+        });
+      }
+      newProject.save().then(doc => {
+        res.status(200).json({
+          success: true,
+          projectId: 'not yet',
+          redirectTo: '/admin/projects'
+        });
+      }).catch(err => {
+        console.error(err);
+        const error = new Error('Internal server error');
+        error.status = 500;
+        next(error);
+      });
+    } else {
+      const error = new Error('Bad request');
+      error.status = 400;
+      next(error);
+    }
+  } else {
     const error = new Error('Not authorized');
     error.status = 401;
     next(error);

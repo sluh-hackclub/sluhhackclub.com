@@ -10,10 +10,12 @@ const submissionSchema = new mongoose.Schema({
     required: true
   },
   timestamp: {
+    // creation time, unix timestamp
     type: String,
     required: true
   },
   last_edit: {
+    // unix timestamp
     type: String,
     required: true
   },
