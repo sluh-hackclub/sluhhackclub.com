@@ -13,10 +13,17 @@ const projectSchema = new mongoose.Schema({
     type: String
   },
   creation_time: {
+    // unix timestamp
     type: String,
     required: true
   },
   last_modified: {
+    // unix timestamp
+    type: String,
+    required: true
+  },
+  deadline: {
+    // unix timestamp
     type: String,
     required: true
   }

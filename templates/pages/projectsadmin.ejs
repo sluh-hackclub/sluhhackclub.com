@@ -1,0 +1,104 @@
+<html><head>
+    <title>Projects | SLUH Hack Club Admin</title>
+    <% include ../partials/head.ejs %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- Bulma Version 0.7.1-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="/main-hero.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    </head>
+      <body>
+        <div style="flex: 1 0 auto;">
+        <section class="hero is-info is-medium is-bold">
+          <div class="hero-head">
+            <nav class="navbar">
+              <div class="container">
+                <div class="navbar-brand">
+                  <a class="navbar-item" href="../">
+                    <img src="/short.png" alt="Logo">
+                  </a>
+                  <span class="navbar-burger burger" data-target="navbarMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                </div>
+
+                <div id="navbarMenu" class="navbar-menu">
+                  <div class="navbar-end">
+                    <div class="tabs is-right">
+                      <ul>
+                        <li><a href="/admin">Admin</a></li>
+                        <li class="is-active"><a>Projects</a></li>
+                        <li><a href="/admin/submissions">Submissions</a></li>
+                      </ul>
+                      <span class="navbar-item">
+                        <a class="button is-white is-outlined" href="/logout">
+                          <span class="icon">
+                            <i class="fas fa-lock"></i>
+                          </span>
+                          <span title="Logout">Logout</span>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+
+        </section>
+        <div class="box cta has-text-centered">
+          <p class="has-text-centered">
+            <b class="title">Projects</b>
+          </p>
+        </div>
+          <p class="has-text-centered">
+            <a href="/admin/projects/create" class="button is-info" style="margin-top:-10px;margin-bottom:15px;">Create Project</a>
+          </p>
+        <div class="container"><div class="box" id="main-table" style="
+        margin-left: 10px;
+    margin-right:10px;">
+                <table class="table is-hoverable is-fullwidth">
+                  <thead>
+                    <tr>
+                      <th>Project Title</th>
+                      <th>Submissions</th>
+                      <th>Deadline</th>
+                      <th>Link</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% entries.forEach((entry, index) => { %>
+                      <tr>
+                        <td><%= entry.title %></td>
+                        <td><%= entry.submissionCount %></td>
+                        <td><%= entry.deadline %></td>
+                        <td><a href="/admin/projects/<%= entry.id %>">Edit</a></td>
+                      </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+        </div></div></div>
+        <footer class="footer" style="padding:1.5rem;flex-shrink:0;">
+      <div class="container">
+        <div class="content has-text-centered">
+          <div class="control level-item">
+            <a href="https://dblitt.com">
+              <div class="tags has-addons">
+                <span class="tag is-dark">website created by</span>
+                <span class="tag is-info" style="background-color: #EE7600;">Daniel Blittschau</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+<script type="text/javascript">
+<% include ../scripts/burger.ejs %>
+</script>
+</body>
+</html>

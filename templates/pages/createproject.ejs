@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Project | SLUH Hack Club Admin</title>
+    <% include ../partials/head.ejs %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- Bulma Version 0.7.1-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="/main-hero.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+      <div style="flex: 1 0 auto;">
+        <section class="hero is-info is-medium is-bold">
+          <div class="hero-head">
+            <nav class="navbar">
+              <div class="container">
+                <div class="navbar-brand">
+                  <a class="navbar-item" href="../">
+                    <img src="/short.png" alt="Logo">
+                  </a>
+                  <span class="navbar-burger burger" data-target="navbarMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                </div>
+                <div id="navbarMenu" class="navbar-menu">
+                  <div class="navbar-end">
+                    <div class="tabs is-right">
+                      <ul>
+                        <li><a href="/admin">Admin</a></li>
+                        <li class="is-active"><a href="/admin/projects">Projects</a></li>
+                        <li><a href="/admin/submissions">Submissions</a></li>
+                      </ul>
+                      <span class="navbar-item">
+                        <a class="button is-white is-outlined" href="/logout">
+                          <span class="icon">
+                            <i class="fas fa-lock"></i>
+                          </span>
+                          <span title="Logout">Logout</span>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </section>
+        <div class="box cta has-text-centered">
+          <p class="has-text-centered">
+            <b class="title">Create Project</b>
+          </p>
+        </div>
+        <div class="container">
+          <div class="column is-6 is-offset-3">
+            <div class="box">
+              <div class="field">
+                <div class="control">
+                  <input id="project-name-input" class="input is-large" type="text" placeholder="Project Name">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <input id="project-description-input" class="input is-large" type="text" placeholder="Project Description">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <input id="project-link-input" class="input is-large" type="url" placeholder="Project Link (Optional) MUST HAVE HTTP(S)">
+                </div>
+              </div>
+              <div class="field">
+                <p class="is-size-4">&nbsp;&nbsp;Project Deadline</p>
+                <div class="control">
+                  <input id="project-deadline-date" class="input is-large" type="date" min="2018-01-01">
+                </div>
+              </div>
+              <button id="submit-button" class="button is-block is-info is-large is-fullwidth">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer" style="padding:1.5rem;flex-shrink:0;">
+      <div class="container">
+        <div class="content has-text-centered">
+          <div class="control level-item">
+            <a href="https://dblitt.com">
+              <div class="tags has-addons">
+                <span class="tag is-dark">website created by</span>
+                <span class="tag is-info" style="background-color: #EE7600;">Daniel Blittschau</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+<script type="text/javascript">
+<% include ../scripts/burger.ejs %>
+
+function isNumeric (value) {
+  return /^-{0,1}\d+$/.test(value);
+}
+
+function validateURL(str) {
+  var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+  if(!regex .test(str)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function submitAction() {
+  if (document.getElementById('project-name-input').value.length > 0) {
+    if (document.getElementById('project-description-input').value.length > 0) {
+      if (document.getElementById('project-deadline-date').value.length > 0) {
+        // this works for central time, it gets the date from the input and outputs the unix timestamp of 11:59:59 PM of that date in central time
+        // or 12:59:59 AM if daylight savings (?) but I do not care...
+        var unixCSTDeadline = Math.round(((new Date(document.getElementById('project-deadline-date').value)).getTime() + 104399000) / 1000);
+        var postObject = {
+            projectName: document.getElementById('project-name-input').value,
+            projectDescription: document.getElementById('project-description-input').value,
+            projectDeadline: unixCSTDeadline
+        };
+        if (validateURL(document.getElementById('project-link-input').value)) {
+          postObject.projectLink = document.getElementById('project-link-input').value;
+        }
+        console.log(postObject);
+        axios.post('/api/v1/createproject', postObject);
+      }
+    }
+  }
+}
+
+document.getElementById('submit-button').onclick = submitAction;
+document.body.addEventListener('keydown', function (event) {
+  if (event.keyCode === 13 && event.repeat === false) {
+    submitAction();
+  }
+});
+
+</script>
+</body>
+</html>

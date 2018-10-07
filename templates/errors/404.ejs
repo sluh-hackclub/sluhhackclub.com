@@ -1,14 +1,99 @@
-
+<!DOCTYPE html>
 <html>
-<head><title>404 Not Found | SLUH Hack Club</title></head>
-<body bgcolor="white">
-<center><h1>404 Not Found</h1></center>
-<hr><center><h2><a href="/">sluhhackclub.com</a></h2></center>
-</body>
+  <head>
+    <title>404 Not Found | SLUH Hack Club</title>
+    <% include ../partials/head.ejs %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- Bulma Version 0.7.1-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="/main-hero.css">
+  </head>
+  <body>
+    <div style="flex: 1 0 auto;">
+      <section class="hero is-info is-medium is-bold">
+        <div class="hero-head">
+          <nav class="navbar">
+            <div class="container">
+              <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                  <img src="/short.png" alt="Logo">
+                </a>
+                <span class="navbar-burger burger" data-target="navbarMenu">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </div>
+
+              <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                  <div class="tabs is-right">
+                    <ul>
+                      <li><a href="/">Home</a></li>
+                      <li><a href="/leaderboard">Leaderboard</a></li>
+                    </ul>
+                    <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
+                      <% if (typeof userType !== 'undefined' && userType === 'student') { %>
+                        <span class="navbar-item">
+                          <a class="button is-white is-outlined" href="/dashboard">
+                            <span class="icon">
+                              <i class="fas fa-tachometer-alt"></i>
+                            </span>
+                            <span title="Dashboard">Dashboard</span>
+                          </a>
+                        </span>
+                      <% } else if (typeof userType !== 'undefined' && userType === 'admin') { %>
+                        <span class="navbar-item">
+                          <a class="button is-white is-outlined" href="/admin">
+                            <span class="icon">
+                              <i class="fas fa-tachometer-alt"></i>
+                            </span>
+                            <span title="Admin">Admin</span>
+                          </a>
+                        </span>
+                      <% } %>
+                    <% } else { %>
+                      <span class="navbar-item">
+                        <a class="button is-white is-outlined" href="/login">
+                          <span class="icon">
+                            <i class="fas fa-lock"></i>
+                          </span>
+                          <span title="Login">Login</span>
+                        </a>
+                      </span>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <div id="main-image-div">
+              <a href="/">
+                <img src="/icon.png" alt="SLUH Hack Club" id="main-image">
+              </a>
+            </div>
+            <h2 class="title" style="margin-bottom: 0;">
+              Error 404 Not Found
+            </h2>
+            <h3 class="subtitle" id="not-found-url">
+              The page <%= originalUrl %> was not found.
+            </h3>
+          </div>
+        </div>
+      </section>
+      <div class="box cta">
+        <p class="has-text-centered">
+          <span class="tag is-warning">Notice</span>&nbsp;&nbsp;sluhhackclub.com is currently under construction. Any pages missing are currently being worked on.
+        </p>
+      </div>
+    </div>
+    <% include ../partials/footer.ejs %>
+    <script type="text/javascript">
+    <% include ../scripts/burger.ejs %>
+    </script>
+  </body>
 </html>
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
