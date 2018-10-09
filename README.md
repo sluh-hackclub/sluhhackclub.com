@@ -1,4 +1,6 @@
-# sluhhackclub.com
+# [sluhhackclub.com](https://sluhhackclub.com)
+
+The official website of the SLUH Hack Club
 
 Created by Daniel Blittschau
 
