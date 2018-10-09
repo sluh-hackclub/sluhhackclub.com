@@ -22,7 +22,7 @@ Node 8 or newer is recommended.
 
 5. Run `node server.js`
 
-6. Press Ctrl-B, release, and press D
+6. Exit from tmux (Ctrl-B, D)
 
 7. Install nginx with `sudo apt install nginx -y`
 
