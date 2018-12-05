@@ -1,5 +1,5 @@
 <html><head>
-    <title>Submissions | SLUH Hack Club Admin</title>
+    <title>Projects | SLUH Hack Club</title>
     <% include ../partials/head.ejs %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
@@ -29,18 +29,41 @@
                   <div class="navbar-end">
                     <div class="tabs is-right">
                       <ul>
-                        <li><a href="/admin">Admin</a></li>
-                        <li><a href="/admin/projects">Projects</a></li>
-                        <li class="is-active"><a>Submissions</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/calendar">Calendar</a></li>
+                        <li class="is-active"><a>Projects</a></li>
+                        <li><a href="/leaderboard">Leaderboard</a></li>
                       </ul>
-                      <span class="navbar-item">
-                        <a class="button is-white is-outlined" href="/logout">
-                          <span class="icon">
-                            <i class="fas fa-lock"></i>
+                      <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
+                        <% if (typeof userType !== 'undefined' && userType === 'student') { %>
+                          <span class="navbar-item">
+                            <a class="button is-white is-outlined" href="/dashboard">
+                              <span class="icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                              </span>
+                              <span title="Dashboard">Dashboard</span>
+                            </a>
                           </span>
-                          <span title="Logout">Logout</span>
-                        </a>
-                      </span>
+                        <% } else if (typeof userType !== 'undefined' && userType === 'admin') { %>
+                          <span class="navbar-item">
+                            <a class="button is-white is-outlined" href="/admin">
+                              <span class="icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                              </span>
+                              <span title="Admin">Admin</span>
+                            </a>
+                          </span>
+                        <% } %>
+                      <% } else { %>
+                        <span class="navbar-item">
+                          <a class="button is-white is-outlined" href="/login">
+                            <span class="icon">
+                              <i class="fas fa-lock"></i>
+                            </span>
+                            <span title="Login">Login</span>
+                          </a>
+                        </span>
+                      <% } %>
                     </div>
                   </div>
                 </div>
@@ -51,37 +74,35 @@
         </section>
         <div class="box cta has-text-centered">
           <p class="has-text-centered">
-              <b class="title">Submissions</b><br></p>
-    <!-- <br><span class="tag is-danger">Not Reviewed</span> -->
-        <p></p>
+            <b class="title">Projects</b>
+          </p>
         </div>
+          <p class="has-text-centered">
+            <a href="/projects/current" class="button is-info" style="margin-top:-10px;margin-bottom:15px;">Current Project</a>
+          </p>
         <div class="container"><div class="box" id="main-table" style="
         margin-left: 10px;
     margin-right:10px;">
                 <table class="table is-hoverable is-fullwidth">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Project</th>
-                      <th>Title</th>
-                      <th>Reviewed</th>
+                      <th>Project Title</th>
+                      <th>Deadline</th>
                       <th>Link</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <% submissions.forEach((entry, index) => { %>
+                    <% entries.forEach((entry, index) => { %>
                       <tr>
-                        <td><%= entry.name %></td>
-                        <td><% if (entry.project === undefined) { %><span style="color:red;">Unknown Project</span><% } else { %><%= entry.project %><% } %></td>
                         <td><%= entry.title %></td>
-                        <td><% if (entry.reviewed === true) { %>Yes<% } else { %>No<% } %></td>
-                        <td><a href="/admin/submissions/<%= entry.id %>">Review</a></td>
+                        <td><%= entry.deadline %></td>
+                        <!-- <td><a href="/projects/<%= entry.id %>">Info</a></td> -->
+                        <td><a href="/projects/current">Info</a></td>
                       </tr>
                     <% }); %>
                   </tbody>
                 </table>
-        </div></div>
-      </div>
+        </div></div></div>
         <footer class="footer" style="padding:1.5rem;flex-shrink:0;">
       <div class="container">
         <div class="content has-text-centered">

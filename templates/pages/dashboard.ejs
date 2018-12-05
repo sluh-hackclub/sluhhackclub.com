@@ -1,127 +1,20 @@
-<html><head>
-    <title>Submission "<%= submissionTitle %>" | SLUH Hack Club</title>
-    <% include ../partials/head.ejs %>
-    <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <!-- Bulma Version 0.7.1-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/hero.css">
-    <link rel="stylesheet" type="text/css" href="/bulma-checkradio.min.css">
-    <style media="screen">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard | SLUH Hack Club</title>
+  <% include ../partials/head.ejs %>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Bulma Version 0.7.1-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+  <link rel="stylesheet" type="text/css" href="/admin.css">
+</head>
 
-/* hero.css */
-
-html,body {
-  background: #EFF3F4;
-  font-family: 'Open Sans', serif;
-}
-.hero-body .container {
-  max-width: 700px;
-}
-.hero-body .title {
-  color: hsl(192,17%,99%) !important;
-}
-.hero-body .subtitle {
-  color: hsl(192,17%,99%) !important;
-  padding-top: 2rem;
-  line-height: 1.5;
-}
-.features {
-  padding: 5rem 0;
-}
-.box.cta {
-  border-radius: 0;
-  border-left: none;
-  border-right: none;
-}
-.card-image > .fas, .card-image > .fab {
-  font-size: 8rem;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  color: #209cee;
-}
-.card-content .content {
-  font-size: 14px;
-  margin: 1rem 1rem;
-}
-.card-content .content h4 {
-  font-size: 16px;
-  font-weight: 700;
-}
-.card {
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-  margin-bottom: 2rem;
-}
-.intro {
-  padding: 5rem 0;
-  text-align: center;
-}
-.sandbox {
-  padding: 5rem 0;
-}
-.tile.notification {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-.is-shady {
-animation: flyintoright .4s backwards;
-background: #fff;
-box-shadow: rgba(0, 0, 0, .1) 0 1px 0;
-border-radius: 4px;
-display: inline-block;
-margin: 10px;
-position: relative;
-transition: all .2s ease-in-out;
-}
-.is-shady:hover {
-box-shadow: 0 10px 16px rgba(0, 0, 0, .13), 0 6px 6px rgba(0, 0, 0, .19);
-}
-/*adds font awesome stars*/
-footer li:before {
-  content: '\f1b2';
-  font-family: 'FontAwesome';
-  float: left;
-  margin-left: -1.5em;
-  color: #147efb;
-}
-
-/* /hero.css */
-
-/* Mobile is assumed (Portait) */
-#main-image-div {
-  margin-top: -20px;
-  margin-bottom: 20px;
-}
-
-#main-image {
-  width: 400px;
-}
-
-/* Large Tablets */
-@media only screen and (min-width: 770px) {
-
-#main-image-div {
-  margin-top: -120px;
-}
-
-}
-
-@media only screen and (max-width: 1088px) {
-    #bottom-section {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-}
-
-    </style>
-
-  <style></style></head>
-  <body>
+<body>
+  <div style="flex: 1 0 auto;">
     <section class="hero is-info is-medium is-bold">
       <div class="hero-head">
-        <nav class="navbar">
+        <nav class="navbar" style="margin-bottom:0;">
           <div class="container">
             <div class="navbar-brand">
               <a class="navbar-item" href="../">
@@ -133,125 +26,112 @@ footer li:before {
                 <span></span>
               </span>
             </div>
-
             <div id="navbarMenu" class="navbar-menu">
               <div class="navbar-end">
                 <div class="tabs is-right">
-                  <ul>
-                    <li><a href="/admin">Admin</a></li>
-                    <li><a href="/admin/projects">Projects</a></li>
-                    <li class="is-active"><a>Submissions</a></li>
+                  <ul style="border-bottom-style: none;">
+                    <!-- <li class="is-active"><a>Dashboard</a></li> -->
+                    <li><a href="/">Home</a></li>
+                    <!-- <li><a href="/dashboard/projects">Projects</a></li> -->
+                    <li><a href="/calendar">Calendar</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                    <li><a href="/leaderboard">Leaderboard</a></li>
                   </ul>
-                  <!-- <div class="navbar-item">
-                    <div class="navbar-dropdown">
-                      <a class="navbar-item">
-                        <div>
-                          <span class="icon is-small">
-                            <i class="fas fa-user-circle-o"></i>
-                          </span>
-                          Profile
-                        </div>
-                      </a>
-                      <a class="navbar-item">
-                        <div>
-                          <span class="icon is-small">
-                            <i class="fas fa-bug"></i>
-                            Creating the navigation bar
-                            39
-                          </span>
-                          Report bug
-                        </div>
-                      </a>
-                      <a class="navbar-item">
-                        <div>
-                          <span class="icon is-small">
-                            <i class="fas fa-sign-out"></i>
-                          </span>
-                          Sign Out
-                        </div>
-                      </a>
-                    </div>
-                  </div> -->
-
-
-                      <span class="navbar-item">
-                        <a class="button is-white is-outlined" href="/logout">
-                          <span class="icon">
-                            <i class="fas fa-lock"></i>
-                          </span>
-                          <span title="Logout">Logout</span>
-                        </a>
+                  <span class="navbar-item">
+                    <a class="button is-white is-outlined" href="/logout">
+                      <span class="icon">
+                        <i class="fas fa-lock"></i>
                       </span>
-
-
+                      <span title="Logout">Logout</span>
+                    </a>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </nav>
       </div>
-      <div class="hero-body" style="
-    padding: 48px;
-">
-        <div class="container has-text-centered">
-
-          <h2 class="subtitle" style="
-    font-size: 1.5rem;
-">
-          Project: &lt;Project Title&gt;
-          </h2>
-        </div>
+    </section>
+    <!-- END NAV -->
+    <div class="container">
+      <div style="margin-left:10px;margin-right:10px;margin-top:16px;">
+        <section class="hero is-info welcome is-small">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                Hello, <%= firstName %> <%= lastName %>.
+              </h1>
+              <!-- <h2 class="subtitle">
+                Dashboard
+              </h2> -->
+            </div>
+          </div>
+        </section>
+        <section class="info-tiles">
+          <div class="tile is-ancestor has-text-centered">
+            <% if (currentProjectExists) { %>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p class="title"><%= latestProjectName %></p>
+                  <p class="subtitle">Current Project</p>
+                </article>
+              </div>
+              <% if (latestProjectSubmitted === true) { %>
+                <div class="tile is-parent">
+                  <div class="tile is-child box notification is-success">
+                    <p class="title">Project Submitted</p><p class="subtitle"></p>
+                  </div>
+                </div>
+              <% } else { %>
+                <div class="tile is-parent">
+                  <div class="tile is-child box notification is-danger">
+                    <p class="title">Not Submitted</p><p class="subtitle"></p>
+                  </div>
+                </div>
+              <% } %>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p class="title"><%= latestProjectDeadline %></p>
+                  <p class="subtitle">Deadline</p>
+                </article>
+              </div>
+            <% } else { %>
+              <div class="tile is-parent"></div>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p class="title">No Current Project</p>
+                </article>
+              </div>
+              <div class="tile is-parent"></div>
+            <% } %>
+          </div>
+        </section>
       </div>
-    </section>
-    <div class="box cta has-text-centered">
-      <p class="has-text-centered">
-          <b class="title"><%= submissionTitle %></b><br></p>
-<br><p class="subtitle"><%= submissionNotes %></p><div style="
-    margin-top: 5px;
-    margin-bottom: -5px;">
-    <a href="<%= submissionURL %>"><%= submissionURL %></a></div><div style="margin-top: 10px;margin-bottom: -10px;">By: <%= submissionFirstName %> <%= submissionLastName %></div><!-- <br><span class="tag is-danger">Not Reviewed</span> -->
-    <p></p>
+      <% if (currentProjectExists) { %>
+        <% if (latestProjectSubmitted === false) { %>
+          <div class="columns" style="margin:0;">
+            <div class="column"></div>
+            <div class="column">
+              <!-- <a href="/dashboard/projects/<%= latestProjectId %>/submit"><button id="submit-button" class="button is-block is-info is-large is-fullwidth">Submit Project</button></a> -->
+            </div>
+            <div class="column"></div>
+          </div>
+        <% } %>
+      <% } else { %>
+        <div class="columns" style="margin:0;">
+          <div class="column"></div>
+          <div class="column">
+            <a href="/dashboard/projects"><button id="submit-button" class="button is-block is-info is-large is-fullwidth">Previous Projects</button></a>
+          </div>
+          <div class="column"></div>
+        </div>
+      <% } %>
     </div>
-    <section id="bottom-section" class="container" style="
-    /* margin-left:  10px; */
-    /* margin-right:  10px; */
-">
-
-      <div class="field" style="
-    /* max-width: 80%; */
-">
-  <label class="label">Reviewer Notes</label>
-  <div class="control">
-    <textarea class="textarea" placeholder="Textarea"></textarea>
   </div>
-</div><div id="bottom-button-div" class="field has-text-centered">
-  <a>
-    <% if (submissionReviewed) { %>
-      <span id="bottom-button-span" class="is-medium tag is-success"><i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed</span>
-    <% } else { %>
-      <span id="bottom-button-span" class="is-medium tag is-danger"><i class="fas fa-times"></i>&nbsp;&nbsp;Submission Not Reviewed</span>
-    <% } %>
-  </a></div>
-
-
-    </section>
-
-
-<script type="text/javascript">
-document.getElementById('bottom-button-span').onclick = function () {
-  document.getElementById('bottom-button-span').classList.toggle('is-success');
-  document.getElementById('bottom-button-span').classList.toggle('is-danger');
-  if (document.getElementById('bottom-button-span').innerHTML === '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed') {
-    // was green, now red
-    document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-times"></i>&nbsp;&nbsp;Submission Not Reviewed';
-  } else {
-    // was red, now green
-    document.getElementById('bottom-button-span').innerHTML = '<i class="fas fa-check"></i>&nbsp;&nbsp;Submission Reviewed';
-  }
-};
-
+  <% include ../partials/footer.ejs %>
+  <script type="text/javascript">
 <% include ../scripts/burger.ejs %>
-</script>
+  </script>
+</body>
 
-
-</body></html>
+</html>

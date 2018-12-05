@@ -75,22 +75,33 @@
         <section class="section">
           <div class="box">
           <nav class="level">
-            <div class="level-item has-text-centered">
-              <div>
-                <p class="heading">
-                  Current Project
-                </p>
-                <p class="title"><%= currentProject %></p>
+            <% if (currentProjectExists) { %>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">
+                    Current Project
+                  </p>
+                  <p class="title"><%= currentProject %></p>
+                </div>
               </div>
-            </div>
-            <div class="level-item has-text-centered">
-              <div>
-                <p class="heading">
-                  Submissions
-                </p>
-                <p class="title"><%= submissionCount %></p>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">
+                    Submissions
+                  </p>
+                  <p class="title"><%= submissionCount %></p>
+                </div>
               </div>
-            </div>
+            <% } else { %>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">
+                    Current Project
+                  </p>
+                  <p class="title"><b>No Current Project</b></p>
+                </div>
+              </div>
+            <% } %>
             <div class="level-item has-text-centered">
               <div>
                 <p class="heading">
@@ -102,7 +113,7 @@
           </nav>
           </div>
           <div class="box">
-            <table class="table is-hoverable is-fullwidth">
+            <table id="leaderboard-table" class="table is-hoverable is-fullwidth">
               <thead>
                 <tr>
                   <th>
@@ -112,10 +123,10 @@
                     Name
                   </th>
                   <th>
-                    Current Project Score
+                    <a id="current-project-score">Current Project Score <i class="fas fa-chevron-down"></i></a>
                   </th>
                   <th>
-                    Total Score
+                    <a id="total-score">Total Score <i class="fas fa-chevron-down"></i></a>
                   </th>
                 </tr>
               </thead>
@@ -138,7 +149,11 @@
                   <tr>
                     <td><%= index + 1 %></td>
                     <td><%= ranking.name %></td>
-                    <td><%= ranking.current_score %></td>
+                    <% if (currentProjectExists) { %>
+                      <td><%= ranking.current_score %></td>
+                    <% } else { %>
+                      <td>N/A</td>
+                    <% } %>
                     <td><%= ranking.total_score %></td>
                   </tr>
                 <% }); %>
@@ -149,5 +164,36 @@
       </div>
       <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script> -->
       <!-- <script src="../../leaderboard.js"></script> -->
+
+<script type="text/javascript">
+
+function sortTable(column) {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById('leaderboard-table');
+  switching = true;
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName('TD')[column];
+      y = rows[i + 1].getElementsByTagName('TD')[column];
+      if (Number(x.innerHTML) < Number(y.innerHTML)) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+
+document.getElementById('current-project-score').onclick = function() {sortTable(2)};
+document.getElementById('total-score').onclick = function() {sortTable(3)};
+
+</script>
+
   </body>
 </html>

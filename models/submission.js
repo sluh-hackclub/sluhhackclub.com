@@ -42,6 +42,9 @@ const submissionSchema = new mongoose.Schema({
   },
   reviewer: {
     type: String
+  },
+  late: {
+    type: Boolean
   }
 });
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin - SLUH Hack Club</title>
+  <title>Admin | SLUH Hack Club</title>
   <% include ../partials/head.ejs %>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -72,18 +72,33 @@
                 <p class="subtitle">Members</p>
               </article>
             </div>
-            <div class="tile is-parent">
-              <article class="tile is-child box">
-                <p class="title">(...)</p>
-                <p class="subtitle">Current Project</p>
-              </article>
-            </div>
-            <div class="tile is-parent">
-              <article class="tile is-child box">
-                <p class="title">(...)</p>
-                <p class="subtitle">Submissions</p>
-              </article>
-            </div>
+            <% if (currentProjectExists) { %>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p class="title"><%= currentProjectTitle %></p>
+                  <p class="subtitle">Current Project</p>
+                </article>
+              </div>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p class="title"><%= currentProjectSubmissions %></p>
+                  <p class="subtitle">Submissions</p>
+                </article>
+              </div>
+            <% } else { %>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p class="title"><b>No Current Project</b></p>
+                  <p class="subtitle">Current Project</p>
+                </article>
+              </div>
+              <div class="tile is-parent">
+                <article class="tile is-child box">
+                  <p class="title">N/A</p>
+                  <p class="subtitle">Submissions</p>
+                </article>
+              </div>
+            <% } %>
           </div>
         </section>
       </div>

@@ -9,6 +9,8 @@ const userTypes = [
   'admin'
 ];
 
+const authMiddleware = require('./authMiddleware.js');
+
 const User = require('../../models/user.js');
 const Submission = require('../../models/submission.js');
 const Project = require('../../models/project.js');
@@ -29,6 +31,14 @@ const validateStudentID = studentID => {
   }
 };
 
+const studentLoginSuccessRedirect = '/dashboard';
+
+router.get('/test', authMiddleware.protectedAdmin, (req, res, next) => {
+  res.status(200).json({
+    'hey': 'hi'
+  });
+});
+
 router.post('/auth', (req, res, next) => {
   // if already logged in, redirect to dashboard
   if (req.session.loggedIn) {
@@ -37,9 +47,7 @@ router.post('/auth', (req, res, next) => {
         success: true,
         loggedIn: true,
         userType: 'student',
-        // redirectTo: '/dashboard'
-        // TODO revert this later
-        redirectTo: '/leaderboard'
+        redirectTo: studentLoginSuccessRedirect
       });
     } else if (req.session.userType === 'admin') {
       res.status(200).json({
@@ -76,9 +84,7 @@ router.post('/auth', (req, res, next) => {
                   success: true,
                   loggedIn: true,
                   userType: 'student',
-                  // redirectTo: '/dashboard'
-                  // TODO revert this later
-                  redirectTo: '/leaderboard'
+                  redirectTo: studentLoginSuccessRedirect
                 });
               } else if (doc[0].user_type === 'admin') {
                 res.status(200).json({
@@ -140,9 +146,7 @@ router.post('/register', (req, res, next) => {
         registered: false,
         loggedIn: true,
         userType: 'student',
-        // redirectTo: '/dashboard'
-        // TODO revert this later
-        redirectTo: '/leaderboard'
+        redirectTo: studentLoginSuccessRedirect
       });
     } else if (req.session.userType === 'admin') {
       res.status(200).json({
@@ -213,9 +217,7 @@ router.post('/register', (req, res, next) => {
                     success: true,
                     registered: true,
                     loggedIn: true,
-                    // redirectTo: '/dashboard'
-                    // TODO revert this later
-                    redirectTo: '/leaderboard'
+                    redirectTo: studentLoginSuccessRedirect
                   });
                   // after the user is saved, send a slack invite to the email
                   request.post({
@@ -308,7 +310,7 @@ router.patch('/submission/:submissionId', (req, res, next) => {
       if (typeof updateOps.last_edit !== 'undefined') {
         delete updateOps.last_edit;
       }
-      Submission.update({ _id: id }, { $set: updateOps })
+      Submission.updateOne({ _id: id }, { $set: updateOps })
         .exec()
         .then(result => {
           console.log(result);
@@ -337,19 +339,41 @@ router.patch('/submission/:submissionId', (req, res, next) => {
   }
 });
 
-router.post('/slack_invite', (req, res, next) => {
-  if (req.session.loggedIn && req.session.userType === 'admin') {
-    if (typeof req.body.email !== 'undefined') {
-      request.post({
-        url: 'https://sluhhackclub.slack.com/api/users.admin.invite',
-        form: {
-          email: req.body.email,
-          token: process.env.SLACK_OAUTH,
-          set_active: true
-        }
-      }, (err, httpResponse, body) => {
-        if (err) {
-          console.error(err);
+router.post('/slack_invite', authMiddleware.protectedAdmin, (req, res, next) => {
+  if (typeof req.body.email !== 'undefined') {
+    request.post({
+      url: 'https://sluhhackclub.slack.com/api/users.admin.invite',
+      form: {
+        email: req.body.email,
+        token: process.env.SLACK_OAUTH,
+        set_active: true
+      }
+    }, (err, httpResponse, body) => {
+      if (err) {
+        console.error(err);
+        // res.status(500).json({
+        //   success: false,
+        //   error: 'Internal server error'
+        // });
+        const error = new Error('Internal server error');
+        error.status = 500;
+        next(error);
+      } else {
+        body = JSON.parse(body);
+        // console.log(body);
+        if (body.ok) {
+          res.status(200).json({
+            success: true,
+            invited: true
+          });
+        } else if (body.error === 'already_invited' || body.error === 'already_in_team' || body.error === 'user_disabled') {
+          res.status(200).json({
+            success: true,
+            invited: false,
+            message: 'Already in workspace'
+          });
+        } else {
+          console.error(body);
           // res.status(500).json({
           //   success: false,
           //   error: 'Internal server error'
@@ -357,48 +381,16 @@ router.post('/slack_invite', (req, res, next) => {
           const error = new Error('Internal server error');
           error.status = 500;
           next(error);
-        } else {
-          body = JSON.parse(body);
-          // console.log(body);
-          if (body.ok) {
-            res.status(200).json({
-              success: true,
-              invited: true
-            });
-          } else if (body.error === 'already_invited' || body.error === 'already_in_team' || body.error === 'user_disabled') {
-            res.status(200).json({
-              success: true,
-              invited: false,
-              message: 'Already in workspace'
-            });
-          } else {
-            console.error(body);
-            // res.status(500).json({
-            //   success: false,
-            //   error: 'Internal server error'
-            // });
-            const error = new Error('Internal server error');
-            error.status = 500;
-            next(error);
-          }
         }
-      });
-    } else {
-      // res.status(400).json({
-      //   success: false,
-      //   error: 'Bad request'
-      // });
-      const error = new Error('Bad request');
-      error.status = 400;
-      next(error);
-    }
+      }
+    });
   } else {
-    // res.status(401).json({
+    // res.status(400).json({
     //   success: false,
-    //   error: 'Not authorized'
+    //   error: 'Bad request'
     // });
-    const error = new Error('Not authorized');
-    error.status = 401;
+    const error = new Error('Bad request');
+    error.status = 400;
     next(error);
   }
 });

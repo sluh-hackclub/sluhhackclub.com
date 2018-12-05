@@ -26,6 +26,14 @@ const projectSchema = new mongoose.Schema({
     // unix timestamp
     type: String,
     required: true
+  },
+  alt_description: {
+    // Something like "November 2018 Programming Project"
+    type: String
+  },
+  long_title: {
+    // Something like "C"
+    type: String
   }
 });
 

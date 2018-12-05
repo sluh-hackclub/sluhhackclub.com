@@ -1,5 +1,5 @@
 <html><head>
-    <title>Project "<%= projectTitle %>" | SLUH Hack Club Admin</title>
+    <title>Project "<%= projectTitle %>" | SLUH Hack Club</title>
     <% include ../partials/head.ejs %>
     <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -53,37 +53,28 @@
         <b class="title"><%= projectTitle %></b>
       </p>
       <p class="subtitle" style="margin-bottom:0;">
-        <%= projectDescription %>
-      </p>
-      <p class="subtitle" style="margin-bottom:0;">
-        <a href="<%= projectLink %>" target="_blank" rel="noopener noreferrer "><%= projectLink %></a>
+        <a href="<%= projectLink %>" target="_blank" rel="noopener noreferrer"><%= projectLink %></a>
       </p>
     </div>
     <div class="container">
       <div class="column is-6 is-offset-3">
         <div class="box">
           <div class="field">
-            <p class="is-size-4">&nbsp;Project Name</p>
+            <p class="is-size-4">&nbsp;Submission Title <span style="color:red;">*</span></p>
             <div class="control">
-              <input id="project-name-input" class="input is-large" type="text" placeholder="Project Name" value="<%= projectTitle %>">
+              <input id="project-name-input" class="input is-large" type="text" placeholder="Submission Title">
             </div>
           </div>
           <div class="field">
-            <p class="is-size-4">&nbsp;Project Description</p>
+            <p class="is-size-4">&nbsp;Submission Notes</p>
             <div class="control">
-              <input id="project-description-input" class="input is-large" type="text" placeholder="Project Description" value="<%= projectDescription %>">
+              <input id="project-description-input" class="input is-large" type="text" placeholder="Submission Notes">
             </div>
           </div>
           <div class="field">
-            <p class="is-size-4">&nbsp;Project Link (Optional) MUST HAVE HTTP(S)</p>
+            <p class="is-size-4">&nbsp;Submission URL <span style="color:red;">*</span></p>
             <div class="control">
-              <input id="project-link-input" class="input is-large" type="url" placeholder="Project Link (Optional) MUST HAVE HTTP(S)" value="<%= projectLink %>">
-            </div>
-          </div>
-          <div class="field">
-            <p class="is-size-4">&nbsp;Project Deadline</p>
-            <div class="control">
-              <input id="project-deadline-date" class="input is-large" type="date" min="2018-01-01">
+              <input id="project-link-input" class="input is-large" type="url" placeholder="Submission URL">
             </div>
           </div>
           <button id="submit-button" class="button is-block is-info is-large is-fullwidth">Submit</button>

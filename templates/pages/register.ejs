@@ -118,6 +118,8 @@ input.login-error, input.login-error:hover, input.login-error:focus, input.login
         </div>
     </section>
 <script type="text/javascript">
+var submitted = false;
+
 function isNumeric (value) {
   return /^-{0,1}\d+$/.test(value);
 }
@@ -137,6 +139,7 @@ function validateStudentID(studentID) {
   }
 }
 function registerAction() {
+  if (submitted) {return};
   // First check for any fields filled in
   if (document.getElementById('email-input').value.length > 0 || document.getElementById('password-input').value.length > 0 || document.getElementById('password-confirm').value.length > 0 || document.getElementById('studentid-input').value.length > 0 || document.getElementById('firstname-input').value.length > 0 || document.getElementById('lastname-input').value.length > 0) {
     if (document.getElementById('firstname-input').value.length > 0) {
@@ -147,6 +150,7 @@ function registerAction() {
               if (document.getElementById('password-confirm').value.length > 0) {
                 if (document.getElementById('password-input').value === document.getElementById('password-confirm').value) {
                   // Fields are good
+                  submitted = true;
                   axios.post('/api/v1/register', {
                     email: document.getElementById('email-input').value,
                     password: document.getElementById('password-input').value,

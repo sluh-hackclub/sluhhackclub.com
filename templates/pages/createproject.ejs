@@ -100,6 +100,8 @@
 <script type="text/javascript">
 <% include ../scripts/burger.ejs %>
 
+var submitted = false;
+
 function isNumeric (value) {
   return /^-{0,1}\d+$/.test(value);
 }
@@ -114,12 +116,21 @@ function validateURL(str) {
 }
 
 function submitAction() {
+  if (submitted) {return}
   if (document.getElementById('project-name-input').value.length > 0) {
     if (document.getElementById('project-description-input').value.length > 0) {
       if (document.getElementById('project-deadline-date').value.length > 0) {
         // this works for central time, it gets the date from the input and outputs the unix timestamp of 11:59:59 PM of that date in central time
         // or 12:59:59 AM if daylight savings (?) but I do not care...
-        var unixCSTDeadline = Math.round(((new Date(document.getElementById('project-deadline-date').value)).getTime() + 104399000) / 1000);
+
+        // Redoing this - 10/31/18
+        // var unixCSTDeadline = Math.round(((new Date(document.getElementById('project-deadline-date').value)).getTime() + 104399000) / 1000);
+        var deadlineDate = new Date(document.getElementById('project-deadline-date').value);
+        deadlineDate.setHours(23,59,59,0); // set time to 11:59PM - 0ms for rounding
+        deadlineDate.setDate(deadlineDate.getDate() + 1); // increment the date by one
+        var unixCSTDeadline = deadlineDate.getTime() / 1000;
+        // should work now - no idea how it will look after time switches...
+        console.log(deadlineDate.getTime())
         var postObject = {
             projectName: document.getElementById('project-name-input').value,
             projectDescription: document.getElementById('project-description-input').value,
@@ -129,7 +140,14 @@ function submitAction() {
           postObject.projectLink = document.getElementById('project-link-input').value;
         }
         console.log(postObject);
-        axios.post('/api/v1/createproject', postObject);
+        submitted = true;
+        axios.post('/api/v1/createproject', postObject)
+        .then(function(response) {
+          console.log(response);
+          if (typeof response.data.redirectTo === 'string') {
+            window.location = response.data.redirectTo;
+          }
+        });
       }
     }
   }

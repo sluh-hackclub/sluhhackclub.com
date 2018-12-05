@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const session = require('express-session');
 const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 
 // Routes
 const apiV1 = require('./api/v1/v1.js');
@@ -17,6 +18,8 @@ const homeRoute = require('./routes/home.js');
 const logoutRoute = require('./routes/logout.js');
 const loginRoute = require('./routes/login.js');
 const joinRoute = require('./routes/join.js');
+const projectsRoute = require('./routes/projects.js');
+const calendarRoute = require('./routes/calendar.js');
 
 mongoose.connect('mongodb+srv://' + process.env.MONGO_USER + ':' + process.env.MONGO_PW + '@' + process.env.MONGO_HOST + '/' + process.env.MONGO_DB + '?retryWrites=true', {
   useNewUrlParser: true
@@ -27,6 +30,8 @@ mongoose.connect('mongodb+srv://' + process.env.MONGO_USER + ':' + process.env.M
   console.error(err);
   process.exit(1);
 });
+
+const db = mongoose.connection;
 
 if (typeof process.env.NODE_ENV !== 'undefined' && process.env.NODE_ENV === 'production') {
   console.log('App started in production mode');
@@ -57,13 +62,23 @@ if (typeof process.env.NODE_ENV !== 'undefined' && process.env.NODE_ENV === 'pro
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/static')));
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/templates'));
+
+const sess = {
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: db }),
+  cookie: {
+    maxAge: 86400000 // 86400000 ms = 1 day (1 * 24 * 60 * 60 * 1000)
+  }
+};
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1);
+  sess.cookie.secure = true;
+}
+app.use(session(sess));
 
 // Send CORS
 app.use((req, res, next) => {
@@ -85,6 +100,8 @@ app.use('/leaderboard', leaderboardRoute);
 app.use('/admin', adminRoute);
 app.use('/slack_invite', slackInviteRoute);
 app.use('/dashboard', dashboardRoute);
+app.use('/projects', projectsRoute);
+app.use('/calendar', calendarRoute);
 
 app.get('/slack', (req, res, next) => {
   res.redirect('https://sluhhackclub.slack.com');
