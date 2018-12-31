@@ -87,7 +87,7 @@ router.get('/submissions', (req, res, next) => {
     Submission.find({}).then(doc => {
       let resOptions = {};
       resOptions.submissions = [];
-      console.log(doc);
+      // console.log(doc);
       let counter = 0;
       let counter2 = 0;
       let noIdCounter = 0;
@@ -99,14 +99,14 @@ router.get('/submissions', (req, res, next) => {
         // TEMPORARY
         // resOptions.submissions[index].project = 'Project Name';
         User.find({email: entry.email}).then(userDoc => {
-          console.log('USER ' + entry.email);
-          console.log(userDoc);
+          // console.log('USER ' + entry.email);
+          // console.log(userDoc);
           resOptions.submissions[index].name = userDoc[0].last_name + ', ' + userDoc[0].first_name;
-          console.log('COUNTER: ' + counter);
+          // console.log('COUNTER: ' + counter);
           if (counter === doc.length - 1) {
-            console.log('DONE');
-            console.log('RESOPTIONS:');
-            console.log(resOptions);
+            // console.log('DONE');
+            // console.log('RESOPTIONS:');
+            // console.log(resOptions);
             doc.forEach((entry, index) => {
               if (mongoose.Types.ObjectId.isValid(entry.project_id)) {
                 Project.findById(entry.project_id, (err, data) => {

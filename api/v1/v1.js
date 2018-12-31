@@ -233,12 +233,12 @@ router.post('/register', (req, res, next) => {
                     } /* begin segment to delete */ else {
                       body = JSON.parse(body);
                       if (body.ok) {
-                        console.log('Invite sent');
+                        console.log('Invite sent to ' + req.body.email);
                       } else if (body.error === 'already_invited' || body.error === 'already_in_team' || body.error === 'user_disabled') {
-                        console.log('Already in workspace');
+                        // console.log('Already in workspace');
                       } else {
+                        console.error('Slack invite error: ');
                         console.error(body);
-                        console.log('Slack invite error');
                       }
                     }
                   });
@@ -313,7 +313,7 @@ router.patch('/submission/:submissionId', (req, res, next) => {
       Submission.updateOne({ _id: id }, { $set: updateOps })
         .exec()
         .then(result => {
-          console.log(result);
+          // console.log(result);
         })
         .catch(err => {
           console.error(err);
