@@ -21,12 +21,24 @@ const joinRoute = require('./routes/join.js');
 const projectsRoute = require('./routes/projects.js');
 const calendarRoute = require('./routes/calendar.js');
 
-mongoose.connect('mongodb+srv://' + process.env.MONGO_USER + ':' + process.env.MONGO_PW + '@' + process.env.MONGO_HOST + '/' + process.env.MONGO_DB + '?retryWrites=true', {
+let mongooseProtocol = 'mongodb://';
+if (process.env.MONGO_SRV === 'true') {
+  mongooseProtocol = 'mongodb+srv://';
+}
+
+let mongooseConnectionString = '';
+if (process.env.MONGO_USER && process.env.MONGO_PW) {
+  mongooseConnectionString = mongooseProtocol + process.env.MONGO_USER + ':' + process.env.MONGO_PW + '@' + process.env.MONGO_HOST + '/' + process.env.MONGO_DB + '?retryWrites=true';
+} else {
+  mongooseConnectionString = mongooseProtocol + process.env.MONGO_HOST + '/' + process.env.MONGO_DB + '?retryWrites=true';
+}
+
+mongoose.connect(mongooseConnectionString, {
   useNewUrlParser: true
 }).then(() => {
-  console.log('Database connected');
+  console.log('Mongoose connected to ' + process.env.MONGO_HOST + '/' + process.env.MONGO_DB);
 }).catch(err => {
-  console.error('Database connection error:');
+  console.error('Mongoose connection error:');
   console.error(err);
   process.exit(1);
 });

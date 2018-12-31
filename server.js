@@ -14,8 +14,8 @@ let missingEnvVars = '';
   'HOST',
   'PORT',
   'MONGO_HOST',
-  'MONGO_USER',
-  'MONGO_PW',
+  // 'MONGO_USER',
+  // 'MONGO_PW',
   'MONGO_DB',
   'SESSION_SECRET',
   'SLACK_OAUTH'
