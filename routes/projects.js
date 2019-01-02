@@ -3,17 +3,18 @@ const router = express.Router();
 
 const Project = require('../models/project.js');
 
-const formatDate = date => {
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
-  var ampm = hours >= 12 ? 'PM' : 'AM';
-  hours = hours % 12;
-  // hours = hours ? hours : 12; // the hour '0' should be '12'
-  hours = hours || 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-  var strTime = hours + ':' + minutes + ' ' + ampm;
-  return strTime + ' ' + (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-};
+const formatDate = require('../snippets/formatDate.js');
+// const formatDate = date => {
+//   var hours = date.getHours();
+//   var minutes = date.getMinutes();
+//   var ampm = hours >= 12 ? 'PM' : 'AM';
+//   hours = hours % 12;
+//   // hours = hours ? hours : 12; // the hour '0' should be '12'
+//   hours = hours || 12; // the hour '0' should be '12'
+//   minutes = minutes < 10 ? '0' + minutes : minutes;
+//   var strTime = hours + ':' + minutes + ' ' + ampm;
+//   return strTime + ' ' + (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+// };
 
 router.get('/', (req, res, next) => {
   // res.status(200).send('<h1>Projects Index</h1>');
