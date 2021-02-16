@@ -1,5 +1,5 @@
 <html><head>
-    <title>Submissions | SLUH Hack Club Admin</title>
+    <title>User Search | SLUH Hack Club Admin</title>
     <% include ../partials/head.ejs %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
@@ -29,16 +29,17 @@
                   <div class="navbar-end">
                     <div class="tabs is-right">
                       <ul>
-                        <li><a href="/admin">Admin</a></li>
-                        <li><a href="/admin/projects">Projects</a></li>
-                        <li class="is-active"><a>Submissions</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/calendar">Calendar</a></li>
+                        <li class="is-active"><a>Projects</a></li>
+                        <li><a href="/leaderboard">Leaderboard</a></li>
                       </ul>
                       <span class="navbar-item">
-                        <a class="button is-white is-outlined" href="/logout">
+                        <a class="button is-white is-outlined" href="/admin">
                           <span class="icon">
-                            <i class="fas fa-lock"></i>
+                            <i class="fas fa-tachometer-alt"></i>
                           </span>
-                          <span title="Logout">Logout</span>
+                          <span title="Admin">Admin</span>
                         </a>
                       </span>
                     </div>
@@ -51,39 +52,48 @@
         </section>
         <div class="box cta has-text-centered">
           <p class="has-text-centered">
-              <b class="title">Submissions</b><br></p>
-    <!-- <br><span class="tag is-danger">Not Reviewed</span> -->
-        <p></p>
+            <b class="title">Search Results for</b><br><%= '"' + searchTerm + '"' %>
+          </p>
         </div>
+          <p class="has-text-centered">
+            <a href="/admin" class="button is-info" style="margin-top:-10px;margin-bottom:15px;"><i class="fas fa-angle-double-left"></i>&nbsp;Back</a>
+          </p>
         <div class="container"><div class="box" id="main-table" style="
         margin-left: 10px;
     margin-right:10px;">
                 <table class="table is-hoverable is-fullwidth">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Project</th>
-                      <th>Title</th>
-                      <th>Reviewed</th>
-                      <th>Link</th>
+                      <th>User Name</th>
+                      <th>Email</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <% submissions.forEach((entry, index) => { %>
+                    <% entries.forEach((entry, index) => { %>
                       <tr>
-                        <td><%= entry.name %></td>
-                        <td><% if (entry.project === undefined) { %><span style="color:red;">Unknown Project</span><% } else { %><%= entry.project %><% } %></td>
-                        <td><%= entry.title %></td>
-                        <td><% if (entry.reviewed === true) { %>Yes<% } else { %>No<% } %></td>
-                        <td><a href="/admin/submissions/<%= entry.id %>" class="button is-warning is-small">Review</a></td>
+                        <td><%= entry.first_name + ' ' + entry.last_name %></td>
+                        <td><%= entry.email %></td>
+                        <td><a href="/admin/users/<%= entry._id %>" class="button is-small is-link">View</a></td>
                       </tr>
                     <% }); %>
                   </tbody>
                 </table>
-        </div></div>
+        </div></div></div>
+        <footer class="footer" style="padding:1.5rem;flex-shrink:0;">
+      <div class="container">
+        <div class="content has-text-centered">
+          <div class="control level-item">
+            <a href="https://dblitt.com">
+              <div class="tags has-addons">
+                <span class="tag is-dark">website created by</span>
+                <span class="tag is-info" style="background-color: #EE7600;">Daniel Blittschau</span>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
-
-      <% include ../partials/footer.ejs %>
+    </footer>
 
 
 <script type="text/javascript">

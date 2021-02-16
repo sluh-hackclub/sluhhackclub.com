@@ -34,9 +34,10 @@ if (process.env.MONGO_USER && process.env.MONGO_PW) {
 }
 
 mongoose.connect(mongooseConnectionString, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 }).then(() => {
-  console.log('Mongoose connected to ' + process.env.MONGO_HOST + '/' + process.env.MONGO_DB);
+  console.log('Mongoose connected to ' + mongooseProtocol + process.env.MONGO_HOST + '/' + process.env.MONGO_DB);
 }).catch(err => {
   console.error('Mongoose connection error:');
   console.error(err);

@@ -39,6 +39,27 @@ router.get('/test', authMiddleware.protectedAdmin, (req, res, next) => {
   });
 });
 
+// router.post('/usersearch', authMiddleware.protectedAdmin, (req, res, next) => {
+router.post('/usersearch', (req, res, next) => {
+  User.aggregate([
+    { $project: { name: { $concat: [ '$first_name', ' ', '$last_name' ] }, email: 1 } },
+    { $match: { name: { $regex: new RegExp(req.body.searchTerm, 'i') } } }
+    // { $match: { $text: { $search: req.body.searchTerm } } },
+    // { $project: { score: { $meta: 'textScore' } } }
+  ])
+    .limit(3)
+    .then(response => {
+      console.log(response);
+      // response.forEach((item, index) => {
+      //
+      // });
+      res.status(200).json({
+        success: true,
+        results: response
+      });
+    });
+});
+
 router.post('/auth', (req, res, next) => {
   // if already logged in, redirect to dashboard
   if (req.session.loggedIn) {
@@ -440,6 +461,8 @@ router.post('/createproject', (req, res, next) => {
     next(error);
   }
 });
+
+// router.put('/submissions')
 
 // Must keep at end of file
 router.use((req, res, next) => {

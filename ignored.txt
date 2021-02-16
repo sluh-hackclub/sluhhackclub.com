@@ -1,0 +1,11 @@
+.: --exclude-dir=1
+./.env: language unknown (#3)
+./.env.example: language unknown (#3)
+./.eslintrc: language unknown (#3)
+./.gitattributes: language unknown (#3)
+./.gitignore: listed in $Not_Code_Extension{gitignore}
+./.nginxconfig.example: language unknown (#3)
+./ignored.txt: listed in $Not_Code_Extension{txt}
+./static/safari-pinned-tab.svg: language unknown (#3)
+./static/site.webmanifest: language unknown (#3)
+./templates/pages/studentproject.ejs: zero sized file

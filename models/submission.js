@@ -5,9 +5,17 @@ const submissionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  user_objectid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   project_id: {
     type: String,
     required: true
+  },
+  project_objectid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Project'
   },
   timestamp: {
     // creation time, unix timestamp

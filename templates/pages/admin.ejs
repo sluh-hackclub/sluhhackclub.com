@@ -88,8 +88,8 @@
             <% } else { %>
               <div class="tile is-parent">
                 <article class="tile is-child box">
-                  <p class="title"><b>No Current Project</b></p>
-                  <p class="subtitle">Current Project</p>
+                  <p class="title"><b>No Current Project</b></p><a href="/admin/projects/create" class="button is-success" style="margin-top:-10px;">Create New</a>
+                  <!-- <p class="subtitle">Current Project</p> -->
                 </article>
               </div>
               <div class="tile is-parent">
@@ -102,18 +102,18 @@
           </div>
         </section>
       </div>
-      <div class="columns" style="margin-left:0px;">
+      <div class="columns" style="margin-left:0px; padding: 0px 10px 0px 10px;">
         <div class="column is-6">
           <div class="card events-card">
             <header class="card-header">
               <p class="card-header-title">
                 Unreviewed Submissions
               </p>
-              <a href="#" class="card-header-icon" aria-label="more options">
+              <!-- <a href="#" class="card-header-icon" aria-label="more options">
                 <span class="icon">
                   <i class="fa fa-angle-down" aria-hidden="true"></i>
                 </span>
-              </a>
+              </a> -->
             </header>
             <div class="card-table">
               <div class="content">
@@ -121,9 +121,9 @@
                   <tbody>
                     <% newSubmissions.forEach(submission => { %>
                     <tr>
-                      <td width="5%"><i class="far fa-bell"></i></td>
+                      <td width="0%" style="padding:0 0 0 10px;"><!--<i class="far fa-bullet"></i>--></td>
                       <td><%= submission.title %></td>
-                      <td><a class="button is-small is-primary" href="/admin/submissions/<%= submission._id.toString() %>">Action</a></td>
+                      <td class="level-right"><a class="button is-small is-warning" href="/admin/submissions/<%= submission._id.toString() %>">Review</a></td>
                     </tr>
                   <% }); %>
                 </tbody>
@@ -131,12 +131,14 @@
             </div>
           </div>
           <footer class="card-footer">
-            <a href="/admin/submissions" class="card-footer-item">View All</a>
+            <div class="container has-text-centered" style="padding: 7px 0;">
+              <a href="/admin/submissions" class="button is-link">View All Submissions</a>
+            </div>
           </footer>
         </div>
       </div>
       <div class="column is-6">
-        <div class="card">
+        <!-- <div class="card">
           <header class="card-header">
             <p class="card-header-title">
               Inventory Search
@@ -160,30 +162,43 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="card">
           <header class="card-header">
             <p class="card-header-title">
               User Search
             </p>
-            <a href="#" class="card-header-icon" aria-label="more options">
+            <!-- <a href="#" class="card-header-icon" aria-label="more options">
               <span class="icon">
                 <i class="fa fa-angle-down" aria-hidden="true"></i>
               </span>
-            </a>
+            </a> -->
           </header>
             <div class="card-content">
-              <div class="content">
-                <div class="control has-icons-left has-icons-right">
-                  <input class="input is-large" type="text" placeholder="">
-                  <span class="icon is-medium is-left">
-                    <i class="fa fa-search"></i>
-                  </span>
-                  <span class="icon is-medium is-right">
-                    <i class="fa fa-check"></i>
-                  </span>
+              <!-- <div class="content"> -->
+              <form action="javascript:void(0);" id="user-search-form">
+                <div class="field">
+                  <div class="control has-icons-left has-icons-right">
+                    <input class="input is-large" type="text" placeholder="Name" name="user-search">
+                    <span class="icon is-medium is-left">
+                      <i class="fa fa-search"></i>
+                    </span>
+                    <span class="icon is-medium is-right" style="cursor: pointer;">
+                      <i class="fa fa-check"></i>
+                    </span>
+                    <!-- <button class="icon is-medium is-right">
+                      <i class="fa fa-check"></i>
+                    </button> -->
                 </div>
-              </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-link">Search</button>
+                    <a href="/admin/users" class="button is-link">View all users</a>
+                  </div>
+                </div>
+              <!-- </div> -->
+              </form>
             </div>
           </div>
         </div>
@@ -193,6 +208,17 @@
   <% include ../partials/footer.ejs %>
   <script type="text/javascript">
 <% include ../scripts/burger.ejs %>
+
+  let userSearchForm = document.getElementById('user-search-form');
+  console.dir(userSearchForm);
+  console.log(userSearchForm[0].value);
+  userSearchForm.onsubmit = function() {
+    // console.log(userSearchForm[0].value);
+    if (userSearchForm[0].value.trim() !== '')
+    window.location = '/admin/users/search/' + userSearchForm[0].value.trim();
+    // console.log('/admin/users/search/' + userSearchForm[0].value);
+  };
+
   </script>
 </body>
 

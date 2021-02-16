@@ -6,10 +6,12 @@ protectedRoutes.protectedAdmin = (req, res, next) => {
       next();
     } else {
       const error = new Error('Not authorized');
+      error.status = 401;
       next(error);
     }
   } else {
     const error = new Error('Not authorized');
+    error.status = 401;
     next(error);
   }
 };
